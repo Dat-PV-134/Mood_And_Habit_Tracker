@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.ArrayList"/>
+
+        <variable
+            name="routineName"
+            type="String" />
+
+        <variable
+            name="routineExpand"
+            type="String" />
+
+        <variable
+            name="onClickExpand"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="isExpand"
+            type="Boolean" />
+
+        <variable
+            name="data"
+            type="ArrayList&lt;String&gt;"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:background="@drawable/bg_item_routine"
+        android:onClick="@{onClickExpand}"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/pbProgress"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            app:cpb_background_progressbar_color="@color/stroke_color"
+            app:cpb_background_progressbar_width="@dimen/_10sdp"
+            app:cpb_progress="69"
+            app:cpb_progressbar_color="@color/main_green_color"
+            app:cpb_progressbar_width="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:text="4/5"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/pbProgress"
+            app:layout_constraintEnd_toEndOf="@id/pbProgress"
+            app:layout_constraintStart_toStartOf="@id/pbProgress"
+            app:layout_constraintTop_toTopOf="@id/pbProgress" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/pbProgress"
+            app:layout_constraintEnd_toStartOf="@id/btnMore"
+            android:layout_marginEnd="@dimen/_4sdp"
+            app:layout_constraintStart_toEndOf="@id/pbProgress"
+            app:layout_constraintTop_toTopOf="@id/pbProgress">
+
+            <TextView
+                android:id="@+id/routineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:text="@{routineName}"
+                android:fontFamily="@font/lato"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_14ssp" />
+
+            <LinearLayout
+                android:id="@+id/btnTracking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:background="@drawable/bg_circle_no_data"
+                    android:contentDescription="@null" />
+
+                <ImageView
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:background="@drawable/bg_circle_no_data"
+                    android:contentDescription="@null" />
+
+                <ImageView
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:background="@drawable/bg_circle_no_data"
+                    android:contentDescription="@null" />
+
+                <ImageView
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:background="@drawable/bg_circle_no_data"
+                    android:contentDescription="@null" />
+
+                <ImageView
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:background="@drawable/bg_circle_no_data"
+                    android:contentDescription="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnMore"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:contentDescription="@null"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_menu_item"
+            app:layout_constraintBottom_toBottomOf="@id/pbProgress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pbProgress" />
+
+        <com.airbnb.epoxy.Carousel
+            android:id="@+id/rvTask"
+            app:layout_constraintTop_toBottomOf="@id/pbProgress"
+            android:layout_marginTop="@dimen/_12sdp"
+            bind:visibility="@{isExpand}"
+            bind:data="@{data}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="bg_color">#F4F4F4</color>
+    <color name="icon_color">#464646</color>
+    <color name="text_color">#272727</color>
+    <color name="stroke_color">#D8D8D8</color>
+    <color name="bg_button_color">#61C6B4</color>
+    <color name="main_green_color">#61C6B4</color>
+    <color name="ripple_color">#5C61C6B4</color>
+</resources>
