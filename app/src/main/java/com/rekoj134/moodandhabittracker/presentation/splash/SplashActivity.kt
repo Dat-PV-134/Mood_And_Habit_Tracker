@@ -1,4 +1,4 @@
-package com.rekoj134.moodandhabittracker.features.splash
+package com.rekoj134.moodandhabittracker.presentation.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.base.BaseActivity
-import com.rekoj134.moodandhabittracker.features.main.MainActivity
+import com.rekoj134.moodandhabittracker.presentation.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
@@ -16,7 +16,8 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }, 4000)
     }

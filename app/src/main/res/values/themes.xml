@@ -2,12 +2,21 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MoodAndHabitTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorAccent">@color/main_green_color</item>
+         <item name="colorPrimary">@color/main_green_color</item>
     </style>
 
     <style name="Theme.MoodAndHabitTracker" parent="Base.Theme.MoodAndHabitTracker" >
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/bg_color</item>
         <item name="colorControlHighlight">@color/ripple_color</item>
+    </style>
+
+    <!--   DateTimePickerTheme-->
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/main_green_color</item>
+        <item name="colorOnPrimary">@color/main_green_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

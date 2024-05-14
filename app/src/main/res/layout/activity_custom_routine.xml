@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        tools:context=".presentation.routines.CustomRoutineActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:fontFamily="@font/lato"
+                android:includeFontPadding="false"
+                android:text="@string/create_routine"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnDone"
+                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_back" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnDone"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_done_action" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvRoutineName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/lato"
+                    android:includeFontPadding="false"
+                    android:text="@string/routine_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etRoutineName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:autofillHints="@null"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="@string/ex_morning_routine"
+                    android:inputType="text"
+                    android:includeFontPadding="false"
+                    android:fontFamily="@font/lato"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_14sdp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_color_secondary"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintTop_toBottomOf="@id/tvRoutineName" />
+
+                <TextView
+                    android:id="@+id/tvRepeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_22sdp"
+                    android:fontFamily="@font/lato"
+                    android:includeFontPadding="false"
+                    android:text="@string/repeat"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etRoutineName" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutRepeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvRepeat"
+                    app:layout_constraintTop_toBottomOf="@id/etRoutineName">
+
+                    <TextView
+                        android:id="@+id/tvRepeatMonday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_selected_repeat"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="M"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatTuesday"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatTuesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_selected_repeat"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="T"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatWednesday"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatMonday"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatWednesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="W"
+                        android:background="@drawable/bg_selected_repeat"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatThursday"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatTuesday"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatThursday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="T"
+                        android:textAlignment="center"
+                        android:background="@drawable/bg_selected_repeat"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatFriday"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatWednesday"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatFriday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="F"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_13ssp"
+                        android:background="@drawable/bg_selected_repeat"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatSaturday"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatThursday"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatSaturday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="S"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@drawable/bg_selected_repeat"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/tvRepeatSunday"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatFriday"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvRepeatSunday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/_6sdp"
+                        android:text="S"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@drawable/bg_selected_repeat"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvRepeatSaturday"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvNotifyMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/lato"
+                    android:includeFontPadding="false"
+                    android:text="@string/notify_me"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutRepeat" />
+
+                <TextView
+                    android:id="@+id/tvNotifyMeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/lato"
+                    android:includeFontPadding="false"
+                    android:text=""
+                    android:visibility="gone"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toEndOf="@id/tvNotifyMe"
+                    app:layout_constraintTop_toBottomOf="@id/layoutRepeat" />
+                
+                <ImageView
+                    android:id="@+id/btnNotifyMe"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/ic_notify_me"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNotifyMe"
+                    app:layout_constraintStart_toEndOf="@id/tvNotifyMeTime"
+                    app:layout_constraintTop_toTopOf="@id/tvNotifyMe" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutCreateNewTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:background="@drawable/bg_edit_text"
+                    app:layout_constraintTop_toBottomOf="@id/tvNotifyMe">
+
+                    <EditText
+                        android:id="@+id/etTaskName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="@null"
+                        android:background="@drawable/bg_edit_text"
+                        android:hint="@string/add_routine_task"
+                        android:inputType="text"
+                        android:fontFamily="@font/lato"
+                        android:padding="@dimen/_12sdp"
+                        android:textAlignment="textStart"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_color_secondary"
+                        android:textSize="@dimen/_13ssp"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        app:layout_constraintBottom_toBottomOf="@id/btnAddNewTask"
+                        app:layout_constraintEnd_toStartOf="@id/btnAddNewTask"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/btnAddNewTask"  />
+
+                    <ImageView
+                        android:id="@+id/btnAddNewTask"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/bg_btn_add"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:src="@drawable/ic_add"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.airbnb.epoxy.EpoxyRecyclerView
+                    android:id="@+id/rvRoutineTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    tools:listitem="@layout/epoxy_item_routine_task_custom"
+                    tools:itemCount="3"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/layoutCreateNewTask" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

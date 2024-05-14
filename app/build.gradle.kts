@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.rekoj134.moodandhabittracker"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -32,6 +32,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -39,6 +40,9 @@ android {
         jvmTarget = "1.8"
     }
     dataBinding {
+        enable = true
+    }
+    viewBinding {
         enable = true
     }
 }
@@ -57,6 +61,22 @@ dependencies {
     implementation("com.mikhaellopez:circularprogressbar:3.1.0")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // The view calendar library
+    implementation("com.kizitonwose.calendar:view:2.5.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    //coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+
+    //room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    //Gson
+    implementation("com.google.code.gson:gson:2.8.8")
 
     // Glide
     implementation(libs.glide)

@@ -4,14 +4,23 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.ArrayList"/>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="parentId"
+            type="Integer" />
 
         <variable
             name="routineName"
             type="String" />
 
         <variable
-            name="routineExpand"
+            name="progress"
+            type="Float" />
+
+        <variable
+            name="progressRatio"
             type="String" />
 
         <variable
@@ -23,8 +32,36 @@
             type="Boolean" />
 
         <variable
-            name="data"
-            type="ArrayList&lt;String&gt;"/>
+            name="statusStreakDay1"
+            type="Integer" />
+
+        <variable
+            name="statusStreakDay2"
+            type="Integer" />
+
+        <variable
+            name="statusStreakDay3"
+            type="Integer" />
+
+        <variable
+            name="statusStreakDay4"
+            type="Integer" />
+
+        <variable
+            name="statusStreakDay5"
+            type="Integer" />
+
+        <variable
+            name="onClickStreak"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="onClickMore"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="routineTasks"
+            type="List&lt;com.rekoj134.moodandhabittracker.model.RoutineTask&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,18 +82,19 @@
             android:indeterminateOnly="false"
             app:cpb_background_progressbar_color="@color/stroke_color"
             app:cpb_background_progressbar_width="@dimen/_10sdp"
-            app:cpb_progress="69"
+            app:cpb_progress="65"
             app:cpb_progressbar_color="@color/main_green_color"
             app:cpb_progressbar_width="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:progress="@{progress}" />
 
         <TextView
             android:id="@+id/tvProgress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
-            android:text="4/5"
+            android:text="@{progressRatio}"
             android:textAlignment="center"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_10ssp"
@@ -69,10 +107,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@id/pbProgress"
             app:layout_constraintEnd_toStartOf="@id/btnMore"
-            android:layout_marginEnd="@dimen/_4sdp"
             app:layout_constraintStart_toEndOf="@id/pbProgress"
             app:layout_constraintTop_toTopOf="@id/pbProgress">
 
@@ -81,51 +119,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_4sdp"
-                android:text="@{routineName}"
                 android:fontFamily="@font/lato"
+                android:text="@{routineName}"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_14ssp" />
 
             <LinearLayout
                 android:id="@+id/btnTracking"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{onClickStreak}"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/streakDay1"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:background="@drawable/bg_circle_no_data"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    bind:status_streak="@{statusStreakDay1}" />
 
                 <ImageView
+                    android:id="@+id/streakDay2"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_7sdp"
                     android:background="@drawable/bg_circle_no_data"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    bind:status_streak="@{statusStreakDay2}" />
 
                 <ImageView
+                    android:id="@+id/streakDay3"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_7sdp"
                     android:background="@drawable/bg_circle_no_data"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    bind:status_streak="@{statusStreakDay3}" />
 
                 <ImageView
+                    android:id="@+id/streakDay4"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_7sdp"
                     android:background="@drawable/bg_circle_no_data"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    bind:status_streak="@{statusStreakDay4}" />
 
                 <ImageView
+                    android:id="@+id/streakDay5"
                     android:layout_width="@dimen/_8sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_7sdp"
                     android:background="@drawable/bg_circle_no_data"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    bind:status_streak="@{statusStreakDay5}" />
             </LinearLayout>
         </LinearLayout>
 
@@ -136,6 +186,8 @@
             android:layout_marginEnd="@dimen/_4sdp"
             android:contentDescription="@null"
             android:padding="@dimen/_8sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{onClickMore}"
             android:src="@drawable/ic_menu_item"
             app:layout_constraintBottom_toBottomOf="@id/pbProgress"
             app:layout_constraintEnd_toEndOf="parent"
@@ -143,14 +195,17 @@
 
         <com.airbnb.epoxy.Carousel
             android:id="@+id/rvTask"
-            app:layout_constraintTop_toBottomOf="@id/pbProgress"
-            android:layout_marginTop="@dimen/_12sdp"
-            bind:visibility="@{isExpand}"
-            bind:data="@{data}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/_12sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/pbProgress"
+            bind:data="@{routineTasks}"
+            bind:itemCount="5"
+            bind:listitem="@layout/epoxy_item_routine_task"
+            bind:parent_id="@{parentId}"
+            bind:visibility="@{isExpand}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

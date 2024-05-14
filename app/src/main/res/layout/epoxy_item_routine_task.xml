@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
+            name="isComplete"
+            type="Boolean" />
+
+        <variable
             name="task"
             type="String" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{onClickItem}"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgTaskStatus"
+            android:layout_width="@dimen/_11sdp"
+            android:layout_height="@dimen/_11sdp"
+            android:contentDescription="@null"
+            bind:task_status="@{isComplete}"
+            android:src="@drawable/bg_circle_no_data"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTestExpand"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:fontFamily="@font/lato"
+            android:includeFontPadding="false"
             android:text="@{task}"
+            bind:task_underline="@{isComplete}"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgTaskStatus"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Good morning" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

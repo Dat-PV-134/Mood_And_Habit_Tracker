@@ -2,10 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent_color">#00FFFFFF</color>
 
     <color name="bg_color">#F4F4F4</color>
+    <color name="bg_color_2">#E3E3E3</color>
     <color name="icon_color">#464646</color>
     <color name="text_color">#272727</color>
+    <color name="text_color_secondary">#7A7A7A</color>
+    <color name="text_color_unselected">#807A7A7A</color>
     <color name="stroke_color">#D8D8D8</color>
     <color name="bg_button_color">#61C6B4</color>
     <color name="main_green_color">#61C6B4</color>

@@ -1,4 +1,4 @@
-package com.rekoj134.moodandhabittracker.features.main
+package com.rekoj134.moodandhabittracker.presentation.main
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -22,8 +22,9 @@ import com.rekoj134.moodandhabittracker.ItemRoutineTaskBindingModel_
 import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.base.BaseActivity
 import com.rekoj134.moodandhabittracker.databinding.ActivityMainBinding
-import com.rekoj134.moodandhabittracker.features.routines.RoutinesFragment
 import com.rekoj134.moodandhabittracker.itemRoutineTask
+import com.rekoj134.moodandhabittracker.preference.MyPreferences
+import com.rekoj134.moodandhabittracker.presentation.routines.RoutinesFragment
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,11 +33,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MyPreferences.init(this@MainActivity)
+        setupView()
         handleEvent()
+    }
+
+    private fun setupView() {
+        replaceFragment(RoutinesFragment())
     }
 
     private fun handleEvent() {
         binding.btnRoutines.setOnClickListener {
+            RoutinesFragment.setOfTaskCompleteToday.removeObservers(this@MainActivity)
+            RoutinesFragment.currentChangeRoutine.removeObservers(this@MainActivity)
             replaceFragment(RoutinesFragment())
         }
 
@@ -62,20 +71,10 @@ class MainActivity : BaseActivity() {
             .replace(R.id.fragmentContainer, fragment)
             .commit()
     }
-}
 
-@BindingAdapter("bind:visibility")
-fun setVisibility(view: EpoxyRecyclerView, isExpand: Boolean) {
-    if (isExpand) view.visibility = View.VISIBLE
-    else view.visibility = View.GONE
-}
-
-@BindingAdapter("bind:data")
-fun setData(view: Carousel, data: List<String>) {
-    Log.e("ANCUTKO", data.toString())
-    view.withModels {
-        data.forEach {
-            ItemRoutineTaskBindingModel_().id(it.hashCode()).task(it).addTo(this@withModels)
-        }
+    override fun onDestroy() {
+        RoutinesFragment.setOfTaskCompleteToday.removeObservers(this@MainActivity)
+        super.onDestroy()
     }
 }
+
