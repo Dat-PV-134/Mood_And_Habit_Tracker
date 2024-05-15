@@ -15,4 +15,12 @@
     <string name="edit_routine">Edit routine</string>
     <string name="history">History</string>
     <string name="delete">Delete</string>
+    <string name="teribal">Teribal</string>
+    <string name="bad">Bad</string>
+    <string name="normal">Normal</string>
+    <string name="good">Good</string>
+    <string name="perfect">Perfect</string>
+    <string name="leave_your_feelings_here">Leave your feelings here</string>
+    <string name="moods">Moods</string>
+    <string name="focus_time">Focus time</string>
 </resources>

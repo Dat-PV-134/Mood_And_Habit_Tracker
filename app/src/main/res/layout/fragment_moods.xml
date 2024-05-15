@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        tools:context=".presentation.routines.RoutineDetailActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:includeFontPadding="false"
+                android:text="@string/moods"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_18ssp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svContent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_30sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btnToday"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:paddingHorizontal="@dimen/_2sdp"
+                    android:paddingVertical="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:contentDescription="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_calendar_today"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/lato"
+                    android:text="13"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_9ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/btnToday"
+                    app:layout_constraintEnd_toEndOf="@id/btnToday"
+                    app:layout_constraintStart_toStartOf="@id/btnToday"
+                    app:layout_constraintTop_toTopOf="@id/btnToday" />
+
+                <TextView
+                    android:id="@+id/tvCurrentMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_14sdp"
+                    android:fontFamily="@font/lato"
+                    android:text="Feb 2024"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/btnToday"
+                    app:layout_constraintEnd_toStartOf="@id/btnToday"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btnToday" />
+
+                <LinearLayout
+                    android:id="@+id/layoutDayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/_6sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentMonth">
+
+                    <TextView
+                        android:id="@+id/tvMonday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="M"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvTuesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="T"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvWednesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="W"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvThursday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="T"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvFriday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="F"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvSaturday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="S"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tvSunday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lato"
+                        android:includeFontPadding="false"
+                        android:text="S"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_14ssp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/layoutCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutDayName">
+
+                    <com.kizitonwose.calendar.view.CalendarView
+                        android:id="@+id/monthCalendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cv_dayViewResource="@layout/item_calendar_day" />
+
+                    <!--            <com.kizitonwose.calendar.view.WeekCalendarView-->
+                    <!--                android:id="@+id/exOneWeekCalendar"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:visibility="gone" />-->
+                </FrameLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutAddNewMood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingVertical="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_26sdp"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutCalendar">
+
+                    <LinearLayout
+                        android:id="@+id/btnTeribal"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/btnBad"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_teribal"/>
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/teribal"
+                            android:fontFamily="@font/lato"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_color"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnBad"
+                        android:layout_width="0dp"
+                        app:layout_constraintEnd_toStartOf="@id/btnNormal"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/btnTeribal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_bad"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bad"
+                            android:fontFamily="@font/lato"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_color"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnNormal"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/btnGood"
+                        app:layout_constraintStart_toEndOf="@id/btnBad"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_normal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/normal"
+                            android:fontFamily="@font/lato"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_color"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnGood"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/btnPerfect"
+                        app:layout_constraintStart_toEndOf="@id/btnNormal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_good"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/good"
+                            android:fontFamily="@font/lato"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_color"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnPerfect"
+                        android:layout_width="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/btnGood"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:contentDescription="@null"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_perfect"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/perfect"
+                            android:fontFamily="@font/lato"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_color"/>
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutCreateNewTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:background="@drawable/bg_edit_text_2"
+                        app:layout_constraintTop_toBottomOf="@id/btnGood">
+
+                        <EditText
+                            android:id="@+id/etTaskName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:autofillHints="@null"
+                            android:background="@drawable/bg_edit_text_2"
+                            android:hint="@string/leave_your_feelings_here"
+                            android:inputType="text"
+                            android:fontFamily="@font/lato"
+                            android:padding="@dimen/_12sdp"
+                            android:textAlignment="textStart"
+                            android:layout_marginEnd="@dimen/_6sdp"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/text_color_secondary"
+                            android:textSize="@dimen/_12ssp"
+                            android:includeFontPadding="false"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            app:layout_constraintBottom_toBottomOf="@id/btnAddNewTask"
+                            app:layout_constraintEnd_toStartOf="@id/btnAddNewTask"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/btnAddNewTask"  />
+
+                        <ImageView
+                            android:id="@+id/btnAddNewTask"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/bg_btn_add"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:src="@drawable/ic_add"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.airbnb.epoxy.EpoxyRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutAddNewMood"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

@@ -1,6 +1,7 @@
 package com.rekoj134.moodandhabittracker.presentation.main
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import com.rekoj134.moodandhabittracker.base.BaseActivity
 import com.rekoj134.moodandhabittracker.databinding.ActivityMainBinding
 import com.rekoj134.moodandhabittracker.itemRoutineTask
 import com.rekoj134.moodandhabittracker.preference.MyPreferences
+import com.rekoj134.moodandhabittracker.presentation.focus.FocusTimeActivity
+import com.rekoj134.moodandhabittracker.presentation.mood.MoodsFragment
 import com.rekoj134.moodandhabittracker.presentation.routines.RoutinesFragment
 
 class MainActivity : BaseActivity() {
@@ -50,11 +53,11 @@ class MainActivity : BaseActivity() {
         }
 
         binding.btnMoods.setOnClickListener {
-
+            replaceFragment(MoodsFragment())
         }
 
         binding.btnFocusTime.setOnClickListener {
-
+            startActivity(Intent(this@MainActivity, FocusTimeActivity::class.java))
         }
 
         binding.btnDiary.setOnClickListener {
