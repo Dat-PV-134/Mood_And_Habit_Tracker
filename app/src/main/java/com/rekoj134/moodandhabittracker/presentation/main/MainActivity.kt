@@ -28,6 +28,7 @@ import com.rekoj134.moodandhabittracker.preference.MyPreferences
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusTimeActivity
 import com.rekoj134.moodandhabittracker.presentation.mood.MoodsFragment
 import com.rekoj134.moodandhabittracker.presentation.routines.RoutinesFragment
+import com.rekoj134.moodandhabittracker.presentation.stat.StatisticsFragment
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -65,7 +66,7 @@ class MainActivity : BaseActivity() {
         }
 
         binding.btnStatistic.setOnClickListener {
-
+            replaceFragment(StatisticsFragment())
         }
     }
 
