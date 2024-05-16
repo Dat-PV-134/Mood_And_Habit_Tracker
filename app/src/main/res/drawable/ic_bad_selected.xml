@@ -21,5 +21,5 @@
       android:strokeWidth="1"
       android:pathData="M11,11m-10.5,0a10.5,10.5 0,1 1,21 0a10.5,10.5 0,1 1,-21 0"
       android:fillColor="#00000000"
-      android:strokeColor="@color/stroke_color"/>
+      android:strokeColor="@color/text_color_secondary"/>
 </vector>

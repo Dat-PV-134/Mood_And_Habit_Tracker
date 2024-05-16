@@ -10,7 +10,7 @@
       android:strokeColor="@color/text_color_secondary"/>
   <path
       android:pathData="M11,11m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
-      android:fillColor="#FF8282"/>
+      android:fillColor="@color/terrible_color"/>
   <path
       android:pathData="M8.265,8.353L8.265,8.353A0.465,0.416 85.195,0 1,8.851 8.303L13.559,12.762A0.465,0.416 85.195,0 1,13.614 13.418L13.614,13.418A0.465,0.416 85.195,0 1,13.028 13.467L8.32,9.009A0.465,0.416 85.195,0 1,8.265 8.353z"
       android:fillColor="#ffffff"/>

@@ -27,8 +27,11 @@ class MoodsFragment : BaseFragment() {
     private val binding get() = _binding
 
     private val monthCalendarView: CalendarView? get() = binding?.monthCalendar
-    private val completeDates = mutableSetOf<LocalDate>()
-    private var selectedDate = LocalDate.now()
+    private val perfectDates = mutableSetOf<LocalDate>()
+    private val goodDates = mutableSetOf<LocalDate>()
+    private val normalDates = mutableSetOf<LocalDate>()
+    private val badDates = mutableSetOf<LocalDate>()
+    private val terribleDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
 
     override fun onCreateView(
@@ -42,7 +45,30 @@ class MoodsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         setupView()
+    }
+
+    private fun initData() {
+        perfectDates.add(today)
+        perfectDates.add(today.minusDays(1))
+        perfectDates.add(today.minusDays(2))
+        perfectDates.add(today.minusDays(5))
+        perfectDates.add(today.minusDays(7))
+        perfectDates.add(today.minusDays(9))
+
+        goodDates.add(today.minusDays(4))
+        goodDates.add(today.minusDays(8))
+        goodDates.add(today.minusDays(16))
+
+        normalDates.add(today.minusDays(15))
+        goodDates.add(today.minusDays(11))
+
+        badDates.add(today.minusDays(17))
+        badDates.add(today.minusDays(10))
+        badDates.add(today.minusDays(14))
+
+        terribleDates.add(today.minusDays(13))
     }
 
     private fun setupView() {
@@ -96,22 +122,16 @@ class MoodsFragment : BaseFragment() {
 
         if (isSelectable && !isBefore) {
             when {
-                completeDates.contains(date) -> {
-                    tvDate.setTextColorRes(R.color.black)
-                    imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_done_selected else R.drawable.ic_done)
-                }
-                today == date -> {
-                    tvDate.setTextColorRes(R.color.black)
-                    imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
-                }
-                else -> {
-                    tvDate.setTextColorRes(R.color.black)
-                    imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_not_done_selected else R.drawable.ic_not_done)
-                }
+                perfectDates.contains(date) -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_perfect_selected else R.drawable.ic_perfect)
+                goodDates.contains(date) -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_good_selected else R.drawable.ic_good)
+                normalDates.contains(date) -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_normal_selected else R.drawable.ic_normal)
+                badDates.contains(date) -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_bad_selected else R.drawable.ic_bad)
+                terribleDates.contains(date) -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_terrible_selected else R.drawable.ic_terrible)
+                else -> imageViewStatus.setImageResource(if (today == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
             }
         } else if (isBefore && isSelectable) {
             tvDate.setTextColorRes(R.color.black)
-            imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
+            imageViewStatus.setImageResource(if (today == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
         } else {
             tvDate.visibility = View.GONE
             imageViewStatus.visibility = View.GONE
