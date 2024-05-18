@@ -21,4 +21,10 @@
     <color name="normal_color">#98C7AB</color>
     <color name="good_color">#8EC7BD</color>
     <color name="perfect_color">#94CADB</color>
+
+    <color name="terrible_color_30">#4DFA9999</color>
+    <color name="bad_color_30">#4DF5BB90</color>
+    <color name="normal_color_30">#4D98C7AB</color>
+    <color name="good_color_30">#4D8EC7BD</color>
+    <color name="perfect_color_30">#4D94CADB</color>
 </resources>

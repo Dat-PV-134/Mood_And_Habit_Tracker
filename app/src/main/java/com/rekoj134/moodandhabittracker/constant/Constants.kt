@@ -23,3 +23,9 @@ const val REPEAT_SUNDAY = "8"
 const val TYPE_EDIT = 0
 const val TYPE_HISTORY = 1
 const val TYPE_DELETE = 3
+
+const val EMOTION_TERRIBLE = 0
+const val EMOTION_BAD = 1
+const val EMOTION_NORMAL = 2
+const val EMOTION_GOOD = 3
+const val EMOTION_PERFECT = 4

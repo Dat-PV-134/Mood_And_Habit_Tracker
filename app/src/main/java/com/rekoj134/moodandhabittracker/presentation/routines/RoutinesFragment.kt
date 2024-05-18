@@ -99,56 +99,58 @@ class RoutinesFragment : BaseFragment() {
     }
 
     private fun updateRoutines(routine: Routine) {
-        var isCompleteToday = true
-        val routineTemp = Routine(
-            routine.id,
-            routine.routineName,
-            routine.routineGoal,
-            routine.repeat,
-            routine.notifyTime,
-            routine.routineTasks,
-            routine.startDate,
-            routine.completeDates
-        )
-
-        Log.e("ANCUTKO", setOfTaskCompleteToday.value.toString())
-        routineTemp.routineTasks.forEach { task ->
-            val pattern = "parent_" + routineTemp.id + "child_" + task.id
-            Log.e("ANCUTKO", pattern.toString())
-            if (!setOfTaskCompleteToday.value!!.contains(pattern)) isCompleteToday = false
-        }
-        Log.e("ANCUTKO", "Today " + isCompleteToday.toString())
-
-        if (isCompleteToday) {
-            setRoutineCompleteToday.remove(routine.id)
-            setRoutineCompleteToday.add(routine.id)
-            Log.e("ANCUTKO", "Today " + setRoutineCompleteToday.toString())
-            routineTemp.completeDates.add(
-                Timeline(
-                    routineTemp.completeDates.size + 1,
-                    LocalDateUtil.fromDateToString(LocalDate.now()),
-                    CalendarUtil.getCurrentHour(),
-                    CalendarUtil.getCurrentMinute(),
-                    CalendarUtil.getCurrentSecond()
-                )
-            )
-        } else {
-            setRoutineCompleteToday.remove(routine.id)
-            routineTemp.completeDates.forEach {
-                if (LocalDateUtil.fromStringToDate(it.date) == LocalDate.now()) routineTemp.completeDates.remove(
-                    it
-                )
-            }
-        }
-
-        binding?.rvRoutines?.requestModelBuild()
-
         CoroutineScope(Dispatchers.IO).launch {
+            var isCompleteToday = true
+            val routineTemp = Routine(
+                routine.id,
+                routine.routineName,
+                routine.routineGoal,
+                routine.repeat,
+                routine.notifyTime,
+                routine.routineTasks,
+                routine.startDate,
+                routine.completeDates
+            )
+
+            Log.e("ANCUTKO", setOfTaskCompleteToday.value.toString())
+            routineTemp.routineTasks.forEach { task ->
+                val pattern = "parent_" + routineTemp.id + "child_" + task.id
+                Log.e("ANCUTKO", pattern.toString())
+                if (!setOfTaskCompleteToday.value!!.contains(pattern)) isCompleteToday = false
+            }
+            Log.e("ANCUTKO", "Today " + isCompleteToday.toString())
+
+            if (isCompleteToday) {
+                setRoutineCompleteToday.remove(routine.id)
+                setRoutineCompleteToday.add(routine.id)
+                Log.e("ANCUTKO", "Today " + setRoutineCompleteToday.toString())
+                routineTemp.completeDates.add(
+                    Timeline(
+                        routineTemp.completeDates.size + 1,
+                        LocalDateUtil.fromDateToString(LocalDate.now()),
+                        CalendarUtil.getCurrentHour(),
+                        CalendarUtil.getCurrentMinute(),
+                        CalendarUtil.getCurrentSecond()
+                    )
+                )
+            } else {
+                setRoutineCompleteToday.remove(routine.id)
+                val iterator = routineTemp.completeDates.iterator()
+                while (iterator.hasNext()) {
+                    val dateItem = iterator.next()
+                    if (LocalDateUtil.fromStringToDate(dateItem.date) == LocalDate.now()) {
+                        iterator.remove()
+                    }
+                }
+            }
             MyPreferences.write(
                 MyPreferences.PREF_COMPLETE_TASKS_TODAY,
                 ModelConverterUtil.fromPatternToString(setOfTaskCompleteToday.value!!.toList())
             )
             MyDatabase.getInstance(requireContext()).routineDao().updateRoutine(routineTemp)
+            withContext(Dispatchers.Main) {
+                binding?.rvRoutines?.requestModelBuild()
+            }
         }
     }
 

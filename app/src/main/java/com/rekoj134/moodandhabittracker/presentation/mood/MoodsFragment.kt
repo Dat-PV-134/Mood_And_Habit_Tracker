@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
@@ -15,9 +16,18 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.base.BaseFragment
+import com.rekoj134.moodandhabittracker.constant.EMOTION_BAD
+import com.rekoj134.moodandhabittracker.constant.EMOTION_GOOD
+import com.rekoj134.moodandhabittracker.constant.EMOTION_NORMAL
+import com.rekoj134.moodandhabittracker.constant.EMOTION_PERFECT
+import com.rekoj134.moodandhabittracker.constant.EMOTION_TERRIBLE
 import com.rekoj134.moodandhabittracker.databinding.FragmentMoodsBinding
 import com.rekoj134.moodandhabittracker.databinding.ItemCalendarDayBinding
+import com.rekoj134.moodandhabittracker.itemMood
+import com.rekoj134.moodandhabittracker.model.Mood
+import com.rekoj134.moodandhabittracker.model.Timeline
 import com.rekoj134.moodandhabittracker.util.setTextColorRes
+import java.sql.Time
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -79,6 +89,21 @@ class MoodsFragment : BaseFragment() {
         setupMonthCalendar(startMonth, endMonth, currentMonth, daysOfWeek)
 
         binding?.tvToday?.text = today.dayOfMonth.toString()
+
+        val listMood = ArrayList<Mood>()
+        listMood.add(Mood(1, EMOTION_PERFECT, Timeline(1, "18-05-2024", 8, 26, 0), "Feeling perfect after eat"))
+        listMood.add(Mood(0, EMOTION_BAD, Timeline(0, "18-05-2024", 6, 30, 0), "Feeling bad"))
+
+        binding?.rvMoods?.withModels {
+            listMood.forEach {
+                itemMood {
+                    id(it.id)
+                    mood(it.mood)
+                    feeling(it.feeling)
+                    time(it.date.hour.toString() + ":" + it.date.minute)
+                }
+            }
+        }
     }
 
     private fun setupMonthCalendar(
@@ -145,5 +170,16 @@ class MoodsFragment : BaseFragment() {
         Log.e("ANCUTKO", "Destroyed")
         super.onDestroy()
         _binding = null
+    }
+}
+
+@BindingAdapter("bind:set_mood")
+fun setMood(view: ImageView, mood: Int) {
+    when (mood) {
+        EMOTION_TERRIBLE -> view.setImageResource(R.drawable.ic_terrible)
+        EMOTION_BAD -> view.setImageResource(R.drawable.ic_bad)
+        EMOTION_NORMAL -> view.setImageResource(R.drawable.ic_normal)
+        EMOTION_GOOD -> view.setImageResource(R.drawable.ic_good)
+        EMOTION_PERFECT -> view.setImageResource(R.drawable.ic_perfect)
     }
 }

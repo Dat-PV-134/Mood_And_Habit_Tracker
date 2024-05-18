@@ -289,12 +289,12 @@ class CustomRoutineActivity : BaseActivity() {
         binding.btnNotifyMe.setImageResource(R.drawable.ic_cancel_notify)
     }
 
-
     private fun createNewRoutine() {
         CoroutineScope(Dispatchers.IO).launch {
             val now = LocalDate.now()
             MyDatabase.getInstance(this@CustomRoutineActivity).routineDao().insertRoutine(
                 Routine(
+                    id = 0,
                     routineName = binding.etRoutineName.text.toString(),
                     routineGoal = "",
                     repeat = repeat,

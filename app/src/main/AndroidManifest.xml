@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MoodAndHabitTracker"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.journal.JournalDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.focus.FocusTimeActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mood"
+            type="Integer" />
+
+        <variable
+            name="feeling"
+            type="String" />
+
+        <variable
+            name="time"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:background="@drawable/bg_item_routine"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgMood"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/_6sdp"
+            bind:set_mood="@{mood}"
+            android:contentDescription="@null" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/imgMood"
+            app:layout_constraintEnd_toStartOf="@id/btnMore"
+            app:layout_constraintStart_toEndOf="@id/imgMood"
+            app:layout_constraintTop_toTopOf="@id/imgMood">
+
+            <TextView
+                android:id="@+id/routineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:fontFamily="@font/lato"
+                android:text="@{feeling}"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/tvMoodTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@{time}"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12ssp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnMore"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:contentDescription="@null"
+            android:padding="@dimen/_8sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_menu_item"
+            app:layout_constraintBottom_toBottomOf="@id/imgMood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgMood" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

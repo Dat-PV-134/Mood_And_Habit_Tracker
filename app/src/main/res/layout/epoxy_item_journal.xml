@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="date"
+            type="String" />
+
+        <variable
+            name="content"
+            type="String" />
+
+        <variable
+            name="emotion"
+            type="Integer" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_176sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        bind:background_emotion="@{emotion}"
+        android:onClick="@{onClick}"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:background="@drawable/bg_item_journal_perfect"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/_10ssp"
+            android:text="@{date}"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/lato"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDate"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@{content}"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/lato"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/imgEmotion"
+            android:layout_width="@dimen/_16sdp"
+            android:src="@drawable/ic_perfect"
+            app:layout_constraintEnd_toEndOf="parent"
+            bind:emotion="@{emotion}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="@dimen/_16sdp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

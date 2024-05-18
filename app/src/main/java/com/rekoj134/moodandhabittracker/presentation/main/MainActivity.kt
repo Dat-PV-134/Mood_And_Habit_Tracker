@@ -26,6 +26,7 @@ import com.rekoj134.moodandhabittracker.databinding.ActivityMainBinding
 import com.rekoj134.moodandhabittracker.itemRoutineTask
 import com.rekoj134.moodandhabittracker.preference.MyPreferences
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusTimeActivity
+import com.rekoj134.moodandhabittracker.presentation.journal.JournalFragment
 import com.rekoj134.moodandhabittracker.presentation.mood.MoodsFragment
 import com.rekoj134.moodandhabittracker.presentation.routines.RoutinesFragment
 import com.rekoj134.moodandhabittracker.presentation.stat.StatisticsFragment
@@ -62,7 +63,7 @@ class MainActivity : BaseActivity() {
         }
 
         binding.btnDiary.setOnClickListener {
-
+            replaceFragment(JournalFragment())
         }
 
         binding.btnStatistic.setOnClickListener {
