@@ -1,5 +1,6 @@
 package com.rekoj134.moodandhabittracker.presentation.stat
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ import com.rekoj134.moodandhabittracker.databinding.FragmentStatisticsBinding
 import com.rekoj134.moodandhabittracker.model.Focus
 import com.rekoj134.moodandhabittracker.model.FocusTime
 import com.rekoj134.moodandhabittracker.model.Timeline
+import com.rekoj134.moodandhabittracker.presentation.settings.SettingsActivity
 import com.rekoj134.moodandhabittracker.util.ModelConverterUtil
 import kotlin.math.roundToInt
 
@@ -60,6 +62,10 @@ class StatisticsFragment : BaseFragment() {
         setupChartMoods(binding!!.myChartMood, dataMood, Color.parseColor("#F8F8F8"))
         setupChartFocus(binding!!.myChartFocus, Color.parseColor("#F8F8F8"))
         setupChartJournal(binding!!.myChartJournal, dataJournal, Color.parseColor("#F8F8F8"))
+
+        binding?.btnSettings?.setOnClickListener {
+            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+        }
     }
 
     private fun getData(count: Int, range: Float): LineData {

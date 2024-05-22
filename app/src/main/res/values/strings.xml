@@ -28,10 +28,13 @@
     <string name="this_week">This week</string>
 
     <string name="journal_entry">
-    \tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
-    \tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
-    \tThis past month, I\'ve challenged myself to step outside of those zones, to try new things, meet new people, and explore new opportunities. And while it hasn\'t always been easy, the rewards have been immeasurable. I\'ve discovered talents and passions I never knew I had, and I\'ve forged connections with incredible individuals who inspire me to be my best self.\n
-    \tOf course, growth isn\'t always linear. There are bound to be setbacks along the way, moments of doubt and uncertainty. But what\'s important is how we respond to those challenges. Do we let them defeat us, or do we use them as opportunities to learn and grow?\n
-    \tFor me, the answer is clear: I choose growth. I choose to see every obstacle as a chance to become stronger, wiser, and more resilient. And as I continue on this journey of self-discovery, I know that my journal will be there to document the highs and lows, the triumphs and tribulations, and everything in between.
+    \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
+    \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
 </string>
+    <string name="settings">Settings</string>
+    <string name="languages">Languages</string>
+    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="feedback">Feedback</string>
+    <string name="today">Today</string>
 </resources>

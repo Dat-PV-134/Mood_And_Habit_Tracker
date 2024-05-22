@@ -13,9 +13,6 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -36,6 +33,7 @@ import com.rekoj134.moodandhabittracker.constant.TYPE_DELETE
 import com.rekoj134.moodandhabittracker.constant.TYPE_EDIT
 import com.rekoj134.moodandhabittracker.constant.TYPE_HISTORY
 import com.rekoj134.moodandhabittracker.databinding.FragmentRoutinesBinding
+import com.rekoj134.moodandhabittracker.databinding.PopupFilterRoutineBinding
 import com.rekoj134.moodandhabittracker.databinding.PopupRoutineBinding
 import com.rekoj134.moodandhabittracker.db.MyDatabase
 import com.rekoj134.moodandhabittracker.itemLoadingFull
@@ -54,7 +52,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-
 class RoutinesFragment : BaseFragment() {
     private var _binding: FragmentRoutinesBinding? = null
     private val binding get() = _binding
@@ -62,6 +59,7 @@ class RoutinesFragment : BaseFragment() {
     private val listRoutines = HashSet<Routine>()
     private val setRoutineCompleteToday = HashSet<Int>()
     private val listOfExpand = ArrayList<Int>()
+    private var isFilterToday = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +72,7 @@ class RoutinesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("TestLocalDate", LocalDate.now().dayOfWeek.value.toString())
         initData()
         setupView()
         handleEvent()
@@ -158,6 +157,10 @@ class RoutinesFragment : BaseFragment() {
         binding?.btnAdd?.setOnClickListener {
             customRoutineLauncher.launch(Intent(requireContext(), CustomRoutineActivity::class.java))
         }
+
+        binding?.btnFilter?.setOnClickListener {
+            showPopupFilter(it)
+        }
     }
 
     private val customRoutineLauncher = registerForActivityResult(
@@ -189,28 +192,32 @@ class RoutinesFragment : BaseFragment() {
                         getStatusStreak(
                             STREAK_DAY_1,
                             LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates)
+                            getNearestCompleteDate(it.completeDates),
+                            it.repeat
                         )
                     )
                     statusStreakDay2(
                         getStatusStreak(
                             STREAK_DAY_2,
                             LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates)
+                            getNearestCompleteDate(it.completeDates),
+                            it.repeat
                         )
                     )
                     statusStreakDay3(
                         getStatusStreak(
                             STREAK_DAY_3,
                             LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates)
+                            getNearestCompleteDate(it.completeDates),
+                            it.repeat
                         )
                     )
                     statusStreakDay4(
                         getStatusStreak(
                             STREAK_DAY_4,
                             LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates)
+                            getNearestCompleteDate(it.completeDates),
+                            it.repeat
                         )
                     )
                     statusStreakDay5(
@@ -261,6 +268,36 @@ class RoutinesFragment : BaseFragment() {
         }
     }
 
+    private fun showPopupFilter(view: View) {
+        val popupInflater = requireActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupBind = PopupFilterRoutineBinding.inflate(popupInflater)
+
+        val popupWindow = PopupWindow(
+            popupBind.root,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply { contentView.setOnClickListener { dismiss() } }
+
+        if (isFilterToday) popupBind.imgAll.visibility = View.INVISIBLE
+        else popupBind.imgToday.visibility = View.INVISIBLE
+
+        popupBind.btnAllRoutine.setOnClickListener {
+            isFilterToday = false
+            initData()
+            popupWindow.dismiss()
+        }
+
+        popupBind.btnToday.setOnClickListener {
+            isFilterToday = true
+            initData()
+            popupWindow.dismiss()
+        }
+
+        popupWindow.isClippingEnabled = false
+        popupWindow.showAsDropDown(view, -184, -50)
+    }
+
     private fun showPopupMore(view: View, onDone: (Int) -> Unit) {
         val popupInflater =
             requireActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -289,7 +326,7 @@ class RoutinesFragment : BaseFragment() {
         }
 
         popupWindow.isClippingEnabled = false
-        popupWindow.showAsDropDown(view, -300, -40)
+        popupWindow.showAsDropDown(view, -200, -50)
     }
 
     private fun goToDetail(item: Routine) {
@@ -310,36 +347,40 @@ class RoutinesFragment : BaseFragment() {
     private fun getStatusStreak(
         streakDay: Int,
         startDate: LocalDate,
-        completeDates: List<LocalDate>
+        completeDates: List<LocalDate>,
+        repeat: String
     ): Int {
         when (streakDay) {
             STREAK_DAY_1 -> {
                 val dayOfStreak1 = LocalDate.now().minusDays(4)
                 if (startDate > dayOfStreak1) return STREAK_NONE
                 return if (completeDates.contains(dayOfStreak1)) STREAK_DONE
-                else STREAK_NOT_DONE
+                else if (repeat.contains((dayOfStreak1.dayOfWeek.value + 1).toString())) STREAK_NOT_DONE
+                else STREAK_NONE
             }
 
             STREAK_DAY_2 -> {
                 val dayOfStreak2 = LocalDate.now().minusDays(3)
                 if (startDate > dayOfStreak2) return STREAK_NONE
                 return if (completeDates.contains(dayOfStreak2)) STREAK_DONE
-                else STREAK_NOT_DONE
+                else if (repeat.contains((dayOfStreak2.dayOfWeek.value + 1).toString())) STREAK_NOT_DONE
+                else STREAK_NONE
             }
 
             STREAK_DAY_3 -> {
                 val dayOfStreak3 = LocalDate.now().minusDays(2)
                 if (startDate > dayOfStreak3) return STREAK_NONE
                 return if (completeDates.contains(dayOfStreak3)) STREAK_DONE
-                else STREAK_NOT_DONE
+                else if (repeat.contains((dayOfStreak3.dayOfWeek.value + 1).toString())) STREAK_NOT_DONE
+                else STREAK_NONE
             }
 
             STREAK_DAY_4 -> {
                 val dayOfStreak4 = LocalDate.now().minusDays(1)
-                Log.e("ANCUTKO", "Trek 4: " + dayOfStreak4.toString())
                 if (startDate > dayOfStreak4) return STREAK_NONE
                 return if (completeDates.contains(dayOfStreak4)) STREAK_DONE
-                else STREAK_NOT_DONE
+                else if (repeat.contains((dayOfStreak4.dayOfWeek.value + 1).toString())) STREAK_NOT_DONE
+                else STREAK_NONE
             }
 
             else -> return STREAK_NONE
@@ -368,11 +409,23 @@ class RoutinesFragment : BaseFragment() {
     }
 
     private fun initData() {
+        if (MyPreferences.read(MyPreferences.PREF_TODAY, "") != LocalDateUtil.fromDateToString(LocalDate.now())) {
+            MyPreferences.write(MyPreferences.PREF_TODAY, LocalDateUtil.fromDateToString(LocalDate.now()))
+            MyPreferences.write(MyPreferences.PREF_COMPLETE_TASKS_TODAY, "")
+        }
         CoroutineScope(Dispatchers.IO).launch {
             listRoutines.clear()
-            listRoutines.addAll(
-                MyDatabase.getInstance(requireContext()).routineDao().getAllRoutine()
-            )
+            listRoutines.addAll(MyDatabase.getInstance(requireContext()).routineDao().getAllRoutineSorted())
+            if (isFilterToday) {
+                val iterator = listRoutines.iterator()
+                while (iterator.hasNext()) {
+                    val routine = iterator.next()
+                    if (!routine.repeat.contains((LocalDate.now().dayOfWeek.value + 1).toString())) {
+                        iterator.remove()
+                    }
+                }
+            }
+            Log.e("List", listRoutines.toString())
             withContext(Dispatchers.Main) {
                 setOfTaskCompleteToday.value = HashSet<String>()
                 setOfTaskCompleteToday.value!!.addAll(
@@ -435,8 +488,7 @@ fun setData(view: Carousel, data: List<RoutineTask>, parentId: Int) {
                 task(it.taskName)
                 isComplete(RoutinesFragment.setOfTaskCompleteToday.value!!.contains("parent_" + parentId + "child_" + it.id))
                 onClickItem { _ ->
-                    val tempSet =
-                        RoutinesFragment.setOfTaskCompleteToday.value!!.clone() as HashSet<String>
+                    val tempSet = RoutinesFragment.setOfTaskCompleteToday.value!!.clone() as HashSet<String>
                     if (!tempSet.remove("parent_" + parentId + "child_" + it.id)) tempSet.add(
                         "parent_" + parentId + "child_" + it.id
                     )

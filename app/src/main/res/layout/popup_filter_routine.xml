@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:background="@drawable/bg_edit_text"
+    android:paddingVertical="@dimen/_6sdp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/btnAllRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgAll"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@null"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_done_action"/>
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all"
+            android:fontFamily="@font/lato"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_14ssp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_toEndOf="@id/imgAll"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btnToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgToday"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:padding="@dimen/_1sdp"
+            android:contentDescription="@null"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_done_action"/>
+
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today"
+            android:fontFamily="@font/lato"
+            android:textSize="@dimen/_14ssp"
+            android:includeFontPadding="false"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_toEndOf="@id/imgToday"/>
+    </RelativeLayout>
+</LinearLayout>

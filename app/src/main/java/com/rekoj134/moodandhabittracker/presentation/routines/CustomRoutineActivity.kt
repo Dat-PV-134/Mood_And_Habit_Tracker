@@ -141,9 +141,9 @@ class CustomRoutineActivity : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                while (setIdNotUse.contains(autoGenId)) autoGenId++
                 controller.getListData().add(0, RoutineTask(autoGenId, binding.etTaskName.text.toString()))
                 binding.rvRoutineTasks.requestModelBuild()
-                while (setIdNotUse.contains(autoGenId)) autoGenId++
             }
         }
 
@@ -254,9 +254,7 @@ class CustomRoutineActivity : BaseActivity() {
             it.notifyTime = notifyTime
             it.routineName = binding.etRoutineName.text.toString()
             CoroutineScope(Dispatchers.IO).launch {
-                MyDatabase.getInstance(this@CustomRoutineActivity).routineDao().updateRoutine(
-                    it
-                )
+                MyDatabase.getInstance(this@CustomRoutineActivity).routineDao().updateRoutine(it)
                 withContext(Dispatchers.Main) {
                     setResult(RESULT_OK)
                     finish()

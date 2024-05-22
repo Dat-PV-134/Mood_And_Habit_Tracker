@@ -13,6 +13,7 @@
     <color name="text_color_unselected">#807A7A7A</color>
     <color name="stroke_color">#E6E6E6</color>
     <color name="bg_button_color">#94CADB</color>
+    <color name="bg_menu_color">#E8E6E6</color>
     <color name="main_green_color">#94CADB</color>
     <color name="ripple_color">#4D94CADB</color>
 

@@ -1,6 +1,7 @@
 package com.rekoj134.moodandhabittracker.presentation.routines
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +16,7 @@ import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.constant.EXTRA_ROUTINE
 import com.rekoj134.moodandhabittracker.databinding.ActivityRoutineDetailBinding
 import com.rekoj134.moodandhabittracker.databinding.ItemCalendarDayBinding
+import com.rekoj134.moodandhabittracker.db.MyDatabase
 import com.rekoj134.moodandhabittracker.model.Routine
 import com.rekoj134.moodandhabittracker.model.Timeline
 import com.rekoj134.moodandhabittracker.util.LocalDateUtil
@@ -138,8 +140,13 @@ class RoutineDetailActivity : AppCompatActivity() {
                     imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
                 }
                 else -> {
-                    tvDate.setTextColorRes(R.color.black)
-                    imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_not_done_selected else R.drawable.ic_not_done)
+                    if (routine?.repeat!!.contains((date.dayOfWeek.value + 1).toString())) {
+                        tvDate.setTextColorRes(R.color.black)
+                        imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_not_done_selected else R.drawable.ic_not_done)
+                    } else {
+                        tvDate.setTextColorRes(R.color.black)
+                        imageViewStatus.setImageResource(if (selectedDate == date) R.drawable.ic_no_data_selected else R.drawable.ic_no_data)
+                    }
                 }
             }
         } else if (isBefore && isSelectable) {
@@ -166,6 +173,8 @@ class RoutineDetailActivity : AppCompatActivity() {
     }
 
     private fun initProgress(completeDates: List<Timeline>) {
+        Log.e("ANCUTKO", completeDates.toString())
+
         val completeDatesThisWeek = ArrayList<LocalDate>()
         val completeDatesThisMonth = ArrayList<LocalDate>()
         val completeDatesThisYear = ArrayList<LocalDate>()
@@ -176,10 +185,19 @@ class RoutineDetailActivity : AppCompatActivity() {
         val startOfMonth = today.withDayOfMonth(1)
         val endOfMonth = startOfMonth.plusMonths(1).minusDays(1)
 
+        var oldComplete = today.plusDays(1)
         completeDates.forEach {
-            if (LocalDateUtil.fromStringToDate(it.date).isAfter(startOfWeek) && LocalDateUtil.fromStringToDate(it.date).isBefore(endOfWeek)) completeDatesThisWeek.add(LocalDateUtil.fromStringToDate(it.date))
-            if (LocalDateUtil.fromStringToDate(it.date).isAfter(startOfMonth) && LocalDateUtil.fromStringToDate(it.date).isBefore(endOfMonth)) completeDatesThisMonth.add(LocalDateUtil.fromStringToDate(it.date))
-            if (LocalDateUtil.fromStringToDate(it.date).year == today.year) completeDatesThisYear.add(LocalDateUtil.fromStringToDate(it.date))
+            if (LocalDateUtil.fromStringToDate(it.date) != oldComplete) {
+                oldComplete = LocalDateUtil.fromStringToDate(it.date)
+
+                if (LocalDateUtil.fromStringToDate(it.date).isAfter(startOfWeek) && LocalDateUtil.fromStringToDate(it.date).isBefore(endOfWeek)) completeDatesThisWeek.add(LocalDateUtil.fromStringToDate(it.date))
+                else if (LocalDateUtil.fromStringToDate(it.date) == startOfWeek || LocalDateUtil.fromStringToDate(it.date) == endOfWeek) completeDatesThisWeek.add(LocalDateUtil.fromStringToDate(it.date))
+
+                if (LocalDateUtil.fromStringToDate(it.date).isAfter(startOfMonth) && LocalDateUtil.fromStringToDate(it.date).isBefore(endOfMonth)) completeDatesThisMonth.add(LocalDateUtil.fromStringToDate(it.date))
+                else if (LocalDateUtil.fromStringToDate(it.date) == startOfMonth || LocalDateUtil.fromStringToDate(it.date) == endOfMonth) completeDatesThisMonth.add(LocalDateUtil.fromStringToDate(it.date))
+
+                if (LocalDateUtil.fromStringToDate(it.date).year == today.year) completeDatesThisYear.add(LocalDateUtil.fromStringToDate(it.date))
+            }
         }
 
         val daysInWeek = 7

@@ -20,4 +20,7 @@ interface RoutineDao {
 
     @Query("SELECT * FROM tbl_routines")
     fun getAllRoutine() : List<Routine>
+
+    @Query("SELECT * FROM tbl_routines ORDER BY id DESC")
+    fun getAllRoutineSorted() : List<Routine>
 }
