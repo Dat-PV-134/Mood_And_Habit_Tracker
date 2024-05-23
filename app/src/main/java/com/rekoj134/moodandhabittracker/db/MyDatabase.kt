@@ -8,18 +8,21 @@ import androidx.room.TypeConverters
 import com.rekoj134.moodandhabittracker.db.converter.RoutineTasksConverter
 import com.rekoj134.moodandhabittracker.db.converter.TimeLineConverter
 import com.rekoj134.moodandhabittracker.db.converter.TimeLinesConverter
+import com.rekoj134.moodandhabittracker.db.dao.MoodDao
 import com.rekoj134.moodandhabittracker.db.dao.RoutineDao
+import com.rekoj134.moodandhabittracker.model.Mood
 import com.rekoj134.moodandhabittracker.model.Routine
 import com.rekoj134.moodandhabittracker.util.getBackUpDirectory
 
 @Database(
-    entities = [Routine::class],
+    entities = [Routine::class, Mood::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(value = [RoutineTasksConverter::class, TimeLinesConverter::class, TimeLineConverter::class])
 abstract class MyDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao
+    abstract fun moodDao(): MoodDao
 
     companion object {
         const val BACKUP_DIRECTORY = ".backup_routines"

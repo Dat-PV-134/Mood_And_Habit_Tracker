@@ -143,6 +143,7 @@ class CustomRoutineActivity : BaseActivity() {
             } else {
                 while (setIdNotUse.contains(autoGenId)) autoGenId++
                 controller.getListData().add(0, RoutineTask(autoGenId, binding.etTaskName.text.toString()))
+                binding.etTaskName.setText("")
                 binding.rvRoutineTasks.requestModelBuild()
             }
         }

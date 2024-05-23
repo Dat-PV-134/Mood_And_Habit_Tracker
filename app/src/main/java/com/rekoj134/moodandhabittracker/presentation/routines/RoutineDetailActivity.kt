@@ -65,8 +65,8 @@ class RoutineDetailActivity : AppCompatActivity() {
 
     private fun setupView() {
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(100)
-        val endMonth = currentMonth.plusMonths(100)
+        val startMonth = currentMonth.minusMonths(12)
+        val endMonth = currentMonth.plusMonths(12)
         val daysOfWeek = daysOfWeek()
         setupMonthCalendar(startMonth, endMonth, currentMonth, daysOfWeek)
 
@@ -164,6 +164,8 @@ class RoutineDetailActivity : AppCompatActivity() {
     private fun initData() {
         routine = intent.extras?.getSerializable(EXTRA_ROUTINE) as Routine?
         routine?.let { routine ->
+            binding.tvTitle.text = routine.routineName
+
             startDate = LocalDateUtil.fromStringToDate(routine.startDate.date)
             routine.completeDates.forEach { completeDate ->
                 completeDates.add(LocalDateUtil.fromStringToDate(completeDate.date))

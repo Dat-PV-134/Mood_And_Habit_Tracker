@@ -15,6 +15,10 @@
         <variable
             name="time"
             type="String" />
+
+        <variable
+            name="onClickMenu"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +82,7 @@
             android:padding="@dimen/_8sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_menu_item"
+            android:onClick="@{onClickMenu}"
             app:layout_constraintBottom_toBottomOf="@id/imgMood"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imgMood" />

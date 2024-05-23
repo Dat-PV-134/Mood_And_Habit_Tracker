@@ -213,7 +213,7 @@
                     app:layout_constraintTop_toBottomOf="@id/layoutCalendar">
 
                     <LinearLayout
-                        android:id="@+id/btnterrible"
+                        android:id="@+id/btnTerrible"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -222,6 +222,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgTerrible"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="center_horizontal"
@@ -247,10 +248,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toStartOf="@id/btnNormal"
-                        app:layout_constraintStart_toEndOf="@id/btnterrible"
+                        app:layout_constraintStart_toEndOf="@id/btnTerrible"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgBad"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="center_horizontal"
@@ -280,6 +282,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgNormal"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="center_horizontal"
@@ -309,12 +312,13 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgGood"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="center_horizontal"
                             android:contentDescription="@null"
                             android:padding="@dimen/_3sdp"
-                            android:src="@drawable/ic_good_selected" />
+                            android:src="@drawable/ic_good" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -338,6 +342,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgPerfect"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="center_horizontal"
@@ -366,7 +371,7 @@
                         app:layout_constraintTop_toBottomOf="@id/btnGood">
 
                         <EditText
-                            android:id="@+id/etTaskName"
+                            android:id="@+id/etFeeling"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_6sdp"
@@ -382,13 +387,13 @@
                             android:textColor="@color/text_color"
                             android:textColorHint="@color/text_color_secondary"
                             android:textSize="@dimen/_12ssp"
-                            app:layout_constraintBottom_toBottomOf="@id/btnAddNewTask"
-                            app:layout_constraintEnd_toStartOf="@id/btnAddNewTask"
+                            app:layout_constraintBottom_toBottomOf="@id/btnAddNewMood"
+                            app:layout_constraintEnd_toStartOf="@id/btnAddNewMood"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btnAddNewTask" />
+                            app:layout_constraintTop_toTopOf="@id/btnAddNewMood" />
 
                         <ImageView
-                            android:id="@+id/btnAddNewTask"
+                            android:id="@+id/btnAddNewMood"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
@@ -412,6 +417,15 @@
                     app:layout_constraintTop_toBottomOf="@id/layoutAddNewMood" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 
