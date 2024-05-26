@@ -1,5 +1,6 @@
 package com.rekoj134.moodandhabittracker.presentation.journal
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,7 +18,9 @@ import com.rekoj134.moodandhabittracker.constant.EXTRA_JOURNAL
 import com.rekoj134.moodandhabittracker.constant.EXTRA_JOURNAL_OBJECT
 import com.rekoj134.moodandhabittracker.constant.TYPE_TEXT
 import com.rekoj134.moodandhabittracker.databinding.ActivityJournalDetailBinding
+import com.rekoj134.moodandhabittracker.databinding.DialogConfirmDeleteBinding
 import com.rekoj134.moodandhabittracker.db.MyDatabase
+import com.rekoj134.moodandhabittracker.dialog.ConfirmDeleteDialog
 import com.rekoj134.moodandhabittracker.dialog.SelectMoodDialog
 import com.rekoj134.moodandhabittracker.itemJournalDetailHeader
 import com.rekoj134.moodandhabittracker.itemJournalDetailText
@@ -129,17 +132,23 @@ class JournalDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteJournal() {
-        curJournal.let {
-            CoroutineScope(Dispatchers.IO).launch {
-                MyDatabase.getInstance(this@JournalDetailActivity).journalDao().deleteJournal(
-                    it
-                )
-                withContext(Dispatchers.IO) {
-                    setResult(RESULT_OK)
-                    finish()
+        val dialogConfirmDelete = ConfirmDeleteDialog(this@JournalDetailActivity, {
+            curJournal.let {
+                CoroutineScope(Dispatchers.IO).launch {
+                    MyDatabase.getInstance(this@JournalDetailActivity).journalDao().deleteJournal(
+                        it
+                    )
+                    withContext(Dispatchers.IO) {
+                        setResult(RESULT_OK)
+                        finish()
+                    }
                 }
             }
-        }
+        }, {
+
+        })
+        dialogConfirmDelete.setTitle(getString(R.string.are_you_sure_want_to_delete_this_journal))
+        dialogConfirmDelete.show()
     }
 
     private fun saveNewJournal() {

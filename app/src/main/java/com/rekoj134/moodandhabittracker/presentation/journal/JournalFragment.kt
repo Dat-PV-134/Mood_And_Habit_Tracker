@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.ColorSpace.Model
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,8 +50,10 @@ class JournalFragment : BaseFragment() {
     private var _binding: FragmentJournalBinding? = null
     private val binding get() = _binding
     private val listJournals = ArrayList<Journal>()
+    private val listJournalsFilter = ArrayList<Journal>()
 
     private var isLoading = true
+    private var isLoadingFilter = true
     private var isNewestFirst = true
 
     override fun onCreateView(
@@ -93,6 +97,38 @@ class JournalFragment : BaseFragment() {
                                 intent.putExtra(EXTRA_JOURNAL, EXTRAS_READ)
                                 intent.putExtra(EXTRA_JOURNAL_OBJECT, it)
                                 customJournalLauncher.launch(intent)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        binding?.rvFilter?.withModels {
+            if (isLoadingFilter) {
+                itemLoadingFull {
+                    id("loading")
+                    spanSizeOverride { totalSpanCount, position, itemCount -> totalSpanCount }
+                }
+            } else {
+                if (listJournalsFilter.isEmpty()) {
+                    itemNone {
+                        id("none")
+                        spanSizeOverride { totalSpanCount, position, itemCount -> totalSpanCount }
+                    }
+                } else {
+                    listJournalsFilter.forEach {
+                        itemJournal {
+                            id(it.id)
+                            date(getDate(it.date))
+                            content(getContent(it.content))
+                            emotion(it.mood)
+                            onClick { _ ->
+                                val intent = Intent(requireContext(), JournalDetailActivity::class.java)
+                                intent.putExtra(EXTRA_JOURNAL, EXTRAS_READ)
+                                intent.putExtra(EXTRA_JOURNAL_OBJECT, it)
+                                customJournalLauncher.launch(intent)
+                                binding?.layoutFilter?.visibility = View.GONE
                             }
                         }
                     }
@@ -150,6 +186,42 @@ class JournalFragment : BaseFragment() {
         binding?.btnSort?.setOnClickListener {
             showPopupSort(it)
         }
+
+        binding?.btnFilter?.setOnClickListener {
+            binding?.layoutFilter?.visibility = View.VISIBLE
+            listJournalsFilter.clear()
+            isLoadingFilter = false
+            binding?.rvFilter?.requestModelBuild()
+        }
+
+        binding?.btnCloseFilter?.setOnClickListener {
+            binding?.layoutFilter?.visibility = View.GONE
+            binding?.etFilter?.setText("")
+        }
+
+        binding?.etFilter?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                initFilterData(binding?.etFilter?.text.toString())
+            }
+        })
+    }
+
+    private fun initFilterData(keyword: String) {
+        isLoadingFilter = true
+        listJournalsFilter.clear()
+        listJournals.forEach {
+            if (getContent(it.content).contains(keyword, true)) listJournalsFilter.add(it.copy())
+        }
+        isLoadingFilter = false
+        binding?.rvFilter?.requestModelBuild()
     }
 
     private fun showPopupSort(view: View) {

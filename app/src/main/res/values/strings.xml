@@ -74,4 +74,6 @@
     <string name="write_something">Write something...</string>
     <string name="newest">Newest</string>
     <string name="oldest">Oldest</string>
+    <string name="are_you_sure_want_to_delete_this_journal">Are you sure want to delete this journal?</string>
+    <string name="search">Search</string>
 </resources>
