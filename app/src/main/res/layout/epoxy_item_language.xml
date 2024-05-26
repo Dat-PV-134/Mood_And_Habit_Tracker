@@ -12,6 +12,10 @@
         <variable
             name="isSelected"
             type="Boolean" />
+
+        <variable
+            name="onClickLanguage"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,6 +25,7 @@
         android:paddingHorizontal="@dimen/_12sdp"
         android:paddingVertical="@dimen/_8sdp"
         bind:language_background="@{isSelected}"
+        android:onClick="@{onClickLanguage}"
         android:background="@drawable/bg_language_selected"
         android:layout_height="wrap_content">
 

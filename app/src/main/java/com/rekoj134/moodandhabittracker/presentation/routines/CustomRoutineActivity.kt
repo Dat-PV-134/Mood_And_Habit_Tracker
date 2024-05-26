@@ -33,6 +33,7 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Calendar
+import kotlin.math.round
 
 class CustomRoutineActivity : BaseActivity() {
     private lateinit var binding: ActivityCustomRoutineBinding
@@ -338,6 +339,9 @@ class CustomRoutineActivity : BaseActivity() {
     }
 
     private fun initData() {
+        setIdNotUse.add(0)
+        setIdNotUse.add(1)
+        setIdNotUse.add(2)
         controller.getListData().add(RoutineTask(autoGenId, "Go for a walk"))
         autoGenId++
         controller.getListData().add(RoutineTask(autoGenId, "Drink water"))

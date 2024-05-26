@@ -62,17 +62,17 @@ class FocusService : Service() {
             }
             val content = when (FocusInstance.curType) {
                 TYPE_LONG_BREAK -> FocusInstance.getFormattedFocusTime(FocusInstance.longBreakTime)
-                TYPE_FOCUS ->  FocusInstance.getFormattedFocusTime(FocusInstance.longBreakTime)
+                TYPE_FOCUS ->  FocusInstance.getFormattedFocusTime(FocusInstance.focusTime)
                 TYPE_SHORT_BREAK -> FocusInstance.getFormattedFocusTime(FocusInstance.breakTime)
                 else -> "Focus"
             }
 
-            val remainingTime = when (FocusInstance.curType) {
-                TYPE_FOCUS -> FocusInstance.focusTime
-                else -> -1
-            }
-
-            if (remainingTime <= 0) FocusInstance.saveFocus(applicationContext)
+//            val remainingTime = when (FocusInstance.curType) {
+//                TYPE_FOCUS -> FocusInstance.focusTime
+//                else -> -1
+//            }
+//
+//            if (remainingTime <= 0) FocusInstance.saveFocus(applicationContext)
 
             when (FocusInstance.curType) {
                 TYPE_LONG_BREAK -> {

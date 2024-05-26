@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/imgTaskStatus"
-            android:layout_width="@dimen/_12sdp"
-            android:layout_height="@dimen/_12sdp"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
             android:contentDescription="@null"
             bind:task_status="@{isComplete}"
             android:src="@drawable/bg_circle_no_data"

@@ -157,8 +157,11 @@ class FocusTimeActivity : BaseActivity() {
                 onClickItem { _ ->
                     val intent = Intent(this@FocusTimeActivity, FocusService::class.java)
                     startService(intent)
-                    if (curType == TYPE_FOCUS) FocusInstance.saveFocus(this@FocusTimeActivity)
-                    doLongBreak()
+                    if (curType == TYPE_FOCUS) {
+                        FocusInstance.saveFocus(this@FocusTimeActivity) {
+                            doLongBreak()
+                        }
+                    }
                 }
             }
 
@@ -178,8 +181,11 @@ class FocusTimeActivity : BaseActivity() {
                 onClickItem { _ ->
                     val intent = Intent(this@FocusTimeActivity, FocusService::class.java)
                     startService(intent)
-                    if (curType == TYPE_FOCUS) FocusInstance.saveFocus(this@FocusTimeActivity)
-                    doShortBreak()
+                    if (curType == TYPE_FOCUS) {
+                        FocusInstance.saveFocus(this@FocusTimeActivity) {
+                            doShortBreak()
+                        }
+                    }
                 }
             }
         }

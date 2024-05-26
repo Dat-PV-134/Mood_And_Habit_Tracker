@@ -12,12 +12,13 @@ object MyPreferences {
     const val PREF_FOCUS_TIME = "pref_focus_time"
     const val PREF_BREAK_TIME = "pref_break_time"
     const val PREF_CURRENT_FOCUS_LABEL = "pref_current_focus_label"
+    const val PREF_LANGUAGE = "pref_language"
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    fun read(key: String, value: String): String? {
+    fun read(key: String, value: String?): String? {
         return prefs.getString(key, value)
     }
 

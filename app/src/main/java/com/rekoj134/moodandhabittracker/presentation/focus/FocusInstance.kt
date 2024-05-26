@@ -96,7 +96,7 @@ object FocusInstance {
         }
     }
 
-    fun saveFocus(context: Context) {
+    fun saveFocus(context: Context, onDone:() -> Unit) {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
@@ -116,6 +116,7 @@ object FocusInstance {
                     curColor
                 )
             )
+            onDone()
         }
     }
 
@@ -126,8 +127,8 @@ object FocusInstance {
             isPausing = false
             curType = -1
             handlerFocus.removeCallbacks(runnableFocus)
-            breakTime = 300000L
-            longBreakTime = 900000L
+            breakTime = totalBreakTime
+            longBreakTime = totalLongBreakTime
             curType = TYPE_FOCUS
             handlerFocus.post(runnableFocus)
         }
@@ -148,8 +149,8 @@ object FocusInstance {
             isPausing = false
             curType = -1
             handlerFocus.removeCallbacks(runnableFocus)
-            focusTime = 1500000L
-            longBreakTime = 900000L
+            focusTime = totalFocusTime
+            longBreakTime = totalLongBreakTime
             curType = TYPE_SHORT_BREAK
             handlerFocus.post(runnableFocus)
         }
@@ -162,8 +163,8 @@ object FocusInstance {
             isPausing = false
             curType = -1
             handlerFocus.removeCallbacks(runnableFocus)
-            focusTime = 1500000L
-            breakTime = 300000L
+            focusTime = totalFocusTime
+            breakTime = totalBreakTime
             curType = TYPE_LONG_BREAK
             handlerFocus.post(runnableFocus)
         }
