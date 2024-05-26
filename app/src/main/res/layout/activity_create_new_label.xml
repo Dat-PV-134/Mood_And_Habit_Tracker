@@ -22,11 +22,11 @@
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:fontFamily="@font/lato"
                 android:includeFontPadding="false"
-                android:text="@string/focus_time"
+                android:text="@string/edit_label"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btnMore"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,51 +48,52 @@
                     android:padding="@dimen/_4sdp"
                     android:src="@drawable/ic_back" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/btnMore"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@null"
-                    android:padding="@dimen/_4sdp"
-                    android:src="@drawable/ic_more_in_focus" />
-            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCreateNewLabel"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutTop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/_76sdp"
-            android:layout_height="0dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:background="@drawable/bg_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/layoutTop">
 
-            <com.rekoj134.moodandhabittracker.presentation.focus.CustomFocusClock
-                android:id="@+id/clock"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_150sdp" />
-
-            <com.airbnb.epoxy.Carousel
-                android:id="@+id/rvPomodoro"
-                android:layout_width="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"
-                android:descendantFocusability="beforeDescendants"
-                tools:listitem="@layout/epoxy_item_pomodoro"
+            <EditText
+                android:id="@+id/etTaskName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"/>
-        </LinearLayout>
+                android:autofillHints="@null"
+                android:background="@drawable/bg_edit_text"
+                android:hint="@string/create_new_label"
+                android:inputType="text"
+                android:fontFamily="@font/lato"
+                android:padding="@dimen/_12sdp"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/text_color_secondary"
+                android:textSize="@dimen/_13ssp"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_6sdp"
+                app:layout_constraintBottom_toBottomOf="@id/btnAddNewTask"
+                app:layout_constraintEnd_toStartOf="@id/btnAddNewTask"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnAddNewTask"  />
+
+            <ImageView
+                android:id="@+id/btnAddNewTask"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/bg_btn_add"
+                android:contentDescription="@null"
+                android:padding="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

@@ -8,6 +8,9 @@ object MyPreferences {
     private const val PREFS_NAME = "shared_preferences"
     const val PREF_COMPLETE_TASKS_TODAY = "pref_complete_tasks_today"
     const val PREF_TODAY = "pref_today"
+    const val PREF_LONG_BREAK_TIME = "pref_long_break_time"
+    const val PREF_FOCUS_TIME = "pref_focus_time"
+    const val PREF_BREAK_TIME = "pref_break_time"
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -21,6 +24,18 @@ object MyPreferences {
         val prefsEditor: SharedPreferences.Editor = prefs.edit()
         with(prefsEditor) {
             putString(key, value)
+            commit()
+        }
+    }
+
+    fun read(key: String, value: Long): Long {
+        return prefs.getLong(key, value)
+    }
+
+    fun write(key: String, value: Long) {
+        val prefsEditor: SharedPreferences.Editor = prefs.edit()
+        with(prefsEditor) {
+            putLong(key, value)
             commit()
         }
     }

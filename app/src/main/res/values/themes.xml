@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MoodAndHabitTracker" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MoodAndHabitTracker" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorAccent">@color/main_green_color</item>
          <item name="colorPrimary">@color/main_green_color</item>

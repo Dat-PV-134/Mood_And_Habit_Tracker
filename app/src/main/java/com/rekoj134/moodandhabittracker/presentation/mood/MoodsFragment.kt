@@ -33,7 +33,11 @@ import com.rekoj134.moodandhabittracker.databinding.ItemCalendarDayBinding
 import com.rekoj134.moodandhabittracker.databinding.PopupMoodBinding
 import com.rekoj134.moodandhabittracker.databinding.PopupRoutineBinding
 import com.rekoj134.moodandhabittracker.db.MyDatabase
+import com.rekoj134.moodandhabittracker.dialog.ConfirmDeleteDialog
+import com.rekoj134.moodandhabittracker.dialog.EditFeelingDialog
+import com.rekoj134.moodandhabittracker.itemBlank
 import com.rekoj134.moodandhabittracker.itemMood
+import com.rekoj134.moodandhabittracker.itemNone
 import com.rekoj134.moodandhabittracker.model.Mood
 import com.rekoj134.moodandhabittracker.model.Timeline
 import com.rekoj134.moodandhabittracker.util.LocalDateUtil
@@ -115,6 +119,7 @@ class MoodsFragment : BaseFragment() {
         }
 
         binding?.btnToday?.setOnClickListener {
+            monthCalendarView?.scrollToMonth(YearMonth.now())
             dateClicked(today)
         }
 
@@ -145,6 +150,11 @@ class MoodsFragment : BaseFragment() {
                             newMood.date,
                             newMood.feeling
                         )
+                        if (tempMood.mood == EMOTION_PERFECT) perfectDates.add(LocalDateUtil.fromStringToDate(tempMood.date.date))
+                        if (tempMood.mood == EMOTION_GOOD) goodDates.add(LocalDateUtil.fromStringToDate(tempMood.date.date))
+                        if (tempMood.mood == EMOTION_NORMAL) normalDates.add(LocalDateUtil.fromStringToDate(tempMood.date.date))
+                        if (tempMood.mood == EMOTION_BAD) badDates.add(LocalDateUtil.fromStringToDate(tempMood.date.date))
+                        if (tempMood.mood == EMOTION_TERRIBLE) terribleDates.add(LocalDateUtil.fromStringToDate(tempMood.date.date))
                         listMood.add(0, tempMood)
                         withContext(Dispatchers.Main) {
                             binding?.etFeeling?.setText("")
@@ -189,21 +199,27 @@ class MoodsFragment : BaseFragment() {
         binding?.tvToday?.text = today.dayOfMonth.toString()
 
         binding?.rvMoods?.withModels {
-            listMoodOfDaySelected.forEach {
-                itemMood {
-                    id(it.id)
-                    mood(it.mood)
-                    feeling(it.feeling)
-                    time(it.date.hour.toString() + ":" + it.date.minute)
-                    onClickMenu { view ->
-                        showPopupMore(view) { type ->
-                            when (type) {
-                                TYPE_EDIT -> {
+            if (listMoodOfDaySelected.isEmpty()) {
+                itemNone {
+                    id("none")
+                }
+            } else {
+                listMoodOfDaySelected.forEach {
+                    itemMood {
+                        id(it.id)
+                        mood(it.mood)
+                        feeling(it.feeling)
+                        time(getFormattedTime(it.date.hour, it.date.minute))
+                        onClickMenu { view ->
+                            showPopupMore(view) { type ->
+                                when (type) {
+                                    TYPE_EDIT -> {
+                                        editFeeling(it)
+                                    }
 
-                                }
-
-                                TYPE_DELETE -> {
-                                    deleteMood(it)
+                                    TYPE_DELETE -> {
+                                        deleteMood(it)
+                                    }
                                 }
                             }
                         }
@@ -219,13 +235,75 @@ class MoodsFragment : BaseFragment() {
         updateListMoodOnSelectedDay()
     }
 
+    private fun editFeeling(mood: Mood) {
+        val editFeelingDialog = EditFeelingDialog(requireContext(), { feeling ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val newMood = Mood(
+                    mood.id,
+                    mood.mood,
+                    mood.date,
+                    feeling
+                )
+                MyDatabase.getInstance(requireContext()).moodDao().updateMood(mood)
+                listMood.remove(mood)
+                listMood.add(newMood)
+
+                listMoodOfDaySelected.remove(mood)
+                listMoodOfDaySelected.add(newMood)
+
+                for ((index, _) in listMoodOfDaySelected.withIndex()) {
+                    if (listMoodOfDaySelected[index] == mood) {
+                        listMoodOfDaySelected.removeAt(index)
+                        listMoodOfDaySelected.add(index, newMood)
+                        break
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    binding?.rvMoods?.requestModelBuild()
+                }
+            }
+        }, {
+
+        })
+        editFeelingDialog.setDefaultFeeling(mood.feeling)
+        editFeelingDialog.show()
+    }
+
+    private fun getFormattedTime(hour: Int, minutes: Int) : String {
+        val strHour = if (hour < 10) "0$hour" else hour.toString()
+        val strMinutes = if (minutes < 10) "0$minutes" else minutes.toString()
+        return "$strHour:$strMinutes"
+    }
+
     private fun deleteMood(mood: Mood) {
-        CoroutineScope(Dispatchers.IO).launch {
-            MyDatabase.getInstance(requireContext()).moodDao().deleteMood(mood)
-            listMood.remove(mood)
-            listMoodOfDaySelected.remove(mood)
-            binding?.rvMoods?.requestModelBuild()
-        }
+        val confirmDialog = ConfirmDeleteDialog(requireContext(), {
+            CoroutineScope(Dispatchers.IO).launch {
+                MyDatabase.getInstance(requireContext()).moodDao().deleteMood(mood)
+                listMood.remove(mood)
+                listMoodOfDaySelected.remove(mood)
+                if (mood.mood == EMOTION_PERFECT) perfectDates.remove(LocalDateUtil.fromStringToDate(mood.date.date))
+                if (mood.mood == EMOTION_GOOD) goodDates.remove(LocalDateUtil.fromStringToDate(mood.date.date))
+                if (mood.mood == EMOTION_NORMAL) normalDates.remove(LocalDateUtil.fromStringToDate(mood.date.date))
+                if (mood.mood == EMOTION_BAD) badDates.remove(LocalDateUtil.fromStringToDate(mood.date.date))
+                if (mood.mood == EMOTION_TERRIBLE) terribleDates.remove(LocalDateUtil.fromStringToDate(mood.date.date))
+                for (item in listMoodOfDaySelected) {
+                    if (item.mood == EMOTION_PERFECT) perfectDates.add(LocalDateUtil.fromStringToDate(item.date.date))
+                    if (item.mood == EMOTION_GOOD) goodDates.add(LocalDateUtil.fromStringToDate(item.date.date))
+                    if (item.mood == EMOTION_NORMAL) normalDates.add(LocalDateUtil.fromStringToDate(item.date.date))
+                    if (item.mood == EMOTION_BAD) badDates.add(LocalDateUtil.fromStringToDate(item.date.date))
+                    if (item.mood == EMOTION_TERRIBLE) terribleDates.add(LocalDateUtil.fromStringToDate(item.date.date))
+                }
+                dateClicked(LocalDateUtil.fromStringToDate(mood.date.date))
+                withContext(Dispatchers.Main) {
+                    binding?.rvMoods?.requestModelBuild()
+                }
+            }
+        }, {
+
+        })
+        confirmDialog.setTitle(getString(R.string.are_you_sure_want_to_delete_this_mood))
+        confirmDialog.show()
     }
 
     private fun showPopupMore(view: View, onDone: (Int) -> Unit) {
@@ -304,6 +382,7 @@ class MoodsFragment : BaseFragment() {
     private fun dateClicked(date: LocalDate) {
         val temp = selectedDate
         selectedDate = date
+        binding?.layoutAddNewMood?.visibility = if (selectedDate == today) View.VISIBLE else View.GONE
         monthCalendarView?.notifyDateChanged(temp)
         monthCalendarView?.notifyDateChanged(selectedDate)
         updateListMoodOnSelectedDay()

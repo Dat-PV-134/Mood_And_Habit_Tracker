@@ -32,4 +32,10 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:src="@drawable/clock_00_second"/>
+
+    <com.rekoj134.moodandhabittracker.presentation.focus.CustomProgressCircle
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

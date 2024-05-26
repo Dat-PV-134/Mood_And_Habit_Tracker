@@ -30,11 +30,16 @@ import com.rekoj134.moodandhabittracker.constant.EMOTION_GOOD
 import com.rekoj134.moodandhabittracker.constant.EMOTION_PERFECT
 import com.rekoj134.moodandhabittracker.constant.EMOTION_TERRIBLE
 import com.rekoj134.moodandhabittracker.databinding.FragmentStatisticsBinding
+import com.rekoj134.moodandhabittracker.db.MyDatabase
 import com.rekoj134.moodandhabittracker.model.Focus
 import com.rekoj134.moodandhabittracker.model.FocusTime
 import com.rekoj134.moodandhabittracker.model.Timeline
 import com.rekoj134.moodandhabittracker.presentation.settings.SettingsActivity
 import com.rekoj134.moodandhabittracker.util.ModelConverterUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class StatisticsFragment : BaseFragment() {
@@ -359,87 +364,43 @@ class StatisticsFragment : BaseFragment() {
     }
 
     private fun setupChartFocus(chart: PieChart, color: Int) {
-        val entries = ArrayList<PieEntry>()
-        val dataSetColors = ArrayList<Int>()
-        val dataSetData = ArrayList<Long>()
-        val reportItemList = arrayListOf<Focus>(
-            Focus(
-                0,
-                "Work",
-                FocusTime(
-                    0,
-                    1500000,
-                    ModelConverterUtil.fromTimelineToString(Timeline(0, "15-05-2024", 15, 30, 0))
-                ),
-                EMOTION_TERRIBLE,
-                Timeline(0, "15-05-2024", 15, 30, 0)
-            ),
-            Focus(
-                1,
-                "Study",
-                FocusTime(
-                    0,
-                    3000000,
-                    ModelConverterUtil.fromTimelineToString(Timeline(0, "15-05-2024", 15, 30, 0))
-                ),
-                EMOTION_BAD,
-                Timeline(0, "15-05-2024", 15, 30, 0)
-            ),
-            Focus(
-                2,
-                "Relax",
-                FocusTime(
-                    0,
-                    3000000,
-                    ModelConverterUtil.fromTimelineToString(Timeline(0, "16-05-2024", 15, 30, 0))
-                ),
-                EMOTION_GOOD,
-                Timeline(0, "15-05-2024", 15, 30, 0)
-            ),
-            Focus(
-                3,
-                "Dating",
-                FocusTime(
-                    0,
-                    1500000,
-                    ModelConverterUtil.fromTimelineToString(Timeline(0, "17-05-2024", 15, 30, 0))
-                ),
-                EMOTION_PERFECT,
-                Timeline(0, "17-05-2024", 15, 30, 0)
-            )
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+            val entries = ArrayList<PieEntry>()
+            val dataSetColors = ArrayList<Int>()
+            val dataSetData = ArrayList<Long>()
+            val reportItemList = MyDatabase.getInstance(requireContext()).focusDao().getAllFocus()
 
-        var totalTime = 0L
-        reportItemList.forEach {
-            totalTime += it.focusedTime.time
-            dataSetData.add(it.focusedTime.time)
+            var totalTime = 0L
+            reportItemList.forEach {
+                totalTime += it.focusedTime.time
+                dataSetData.add(it.focusedTime.time)
+            }
+
+            reportItemList.forEach {
+                entries.add(PieEntry(25f, it.label))
+            }
+
+            dataSetColors.add(Color.parseColor("#FA9999"))
+
+            val dataSet = PieDataSet(entries, "")
+            dataSet.colors = dataSetColors
+            dataSet.sliceSpace = 2.5f
+
+            val data = PieData(dataSet)
+            data.setDrawValues(false)
+            data.setValueFormatter(PercentFormatter(binding?.myChartFocus))
+            data.setValueTextSize(0f)
+            data.setValueTextColor(Color.BLACK)
+
+            withContext(Dispatchers.Main) {
+                binding?.apply {
+                    myChartFocus.description.isEnabled = false
+                    myChartFocus.data = data
+                    myChartFocus.invalidate()
+                    myChartFocus.animateY(1200, Easing.EaseInOutQuad)
+                }
+            }
         }
-
-        reportItemList.forEach {
-            entries.add(PieEntry(25f, it.label))
-        }
-
-        dataSetColors.add(Color.parseColor("#FA9999"))
-        dataSetColors.add(Color.parseColor("#98C7AB"))
-        dataSetColors.add(Color.parseColor("#8EC7BD"))
-        dataSetColors.add(Color.parseColor("#94CADB"))
-
-        val dataSet = PieDataSet(entries, "")
-        dataSet.colors = dataSetColors
-        dataSet.sliceSpace = 2.5f
-
-        val data = PieData(dataSet)
-        data.setDrawValues(false)
-        data.setValueFormatter(PercentFormatter(binding?.myChartFocus))
-        data.setValueTextSize(0f)
-        data.setValueTextColor(Color.BLACK)
-        binding?.apply {
-            myChartFocus.description.isEnabled = false
-            myChartFocus.data = data
-            myChartFocus.invalidate()
-            myChartFocus.animateY(1200, Easing.EaseInOutQuad)
-        }
-
     }
 
     private fun getDataJournal(count: Int, range: Float): LineData {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:background="@drawable/bg_edit_text"
+    android:paddingVertical="@dimen/_6sdp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/btnLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgLabel"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@null"
+            android:padding="@dimen/_1sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_label"/>
+
+        <TextView
+            android:id="@+id/tvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label"
+            android:fontFamily="@font/lato"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_14ssp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_toEndOf="@id/imgLabel"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btnTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp">
+
+        <ImageView
+            android:id="@+id/imgTime"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@null"
+            android:padding="@dimen/_1sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_simple_clock"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:fontFamily="@font/lato"
+            android:textSize="@dimen/_14ssp"
+            android:includeFontPadding="false"
+            android:layout_centerVertical="true"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_toEndOf="@id/imgTime"/>
+    </RelativeLayout>
+</LinearLayout>

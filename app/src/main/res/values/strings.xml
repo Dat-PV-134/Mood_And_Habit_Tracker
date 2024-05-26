@@ -30,6 +30,14 @@
     <string name="journal_entry">
     \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
     \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
+         \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
+    \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
+         \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
+    \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
+         \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
+    \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
+         \t\tAs I sit down to write in my journal today, I\'m filled with a sense of gratitude for the journey I\'ve been on recently. Life has a way of surprising us, doesn\'t it? Just a few months ago, I was feeling stuck in a rut, unsure of where my path was leading. But now, as I look back on the progress I\'ve made, I can\'t help but marvel at how far I\'ve come.\n
+    \t\tOne of the most significant realizations I\'ve had recently is the importance of embracing change. Change can be intimidating, even frightening at times, but it\'s also necessary for growth. In the past, I often resisted change, clinging to familiarity and routine. But now, I understand that true growth lies on the other side of our comfort zones.\n
 </string>
     <string name="settings">Settings</string>
     <string name="languages">Languages</string>
@@ -40,4 +48,22 @@
     <string name="leave_your_feeling">Leave your feeling</string>
     <string name="select_your_mood">Select your mood</string>
     <string name="added_new_mood_successfully">Added new mood successfully</string>
+    <string name="are_you_sure_want_to_delete_this_routine">Are you sure want to delete this routine?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure_want_to_delete_this_mood">Are you sure want to delete this mood?</string>
+    <string name="edit_your_feeling">Edit your feeling</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="label">Label</string>
+    <string name="time">Time</string>
+    <string name="custom_time">Custom time</string>
+    <string name="focus_time_two_dot">Focus time:</string>
+    <string name="short_break_with_dot">Short break:</string>
+    <string name="update_successfully">Update successfully</string>
+    <string name="long_break_with_two_dot">Long break:</string>
+    <string name="select_label">Select label</string>
+    <string name="no_items">No items</string>
+    <string name="edit_label">Edit label</string>
+    <string name="create_new_label">Create new label...</string>
 </resources>

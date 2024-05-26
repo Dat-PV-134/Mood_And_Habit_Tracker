@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoodAndHabitTracker"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.focus.CreateNewLabelActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.settings.LanguagesActivity"
             android:exported="false" />
@@ -48,6 +56,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".service.FocusService"
+            android:foregroundServiceType="specialUse" />
     </application>
 
 </manifest>

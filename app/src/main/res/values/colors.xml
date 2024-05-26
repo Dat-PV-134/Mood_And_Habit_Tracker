@@ -28,4 +28,6 @@
     <color name="normal_color_30">#4D98C7AB</color>
     <color name="good_color_30">#4D8EC7BD</color>
     <color name="perfect_color_30">#4D94CADB</color>
+
+    <color name="test_color">#00FFFFFF</color>
 </resources>

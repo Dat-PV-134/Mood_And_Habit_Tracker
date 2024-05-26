@@ -2,21 +2,13 @@ package com.rekoj134.moodandhabittracker.presentation.journal
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SyncStateContract.Constants
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import com.kizitonwose.calendar.core.CalendarDay
-import com.kizitonwose.calendar.core.DayPosition
-import com.kizitonwose.calendar.core.daysOfWeek
-import com.kizitonwose.calendar.view.CalendarView
-import com.kizitonwose.calendar.view.MonthDayBinder
-import com.kizitonwose.calendar.view.ViewContainer
 import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.base.BaseFragment
 import com.rekoj134.moodandhabittracker.constant.EMOTION_BAD
@@ -24,15 +16,12 @@ import com.rekoj134.moodandhabittracker.constant.EMOTION_GOOD
 import com.rekoj134.moodandhabittracker.constant.EMOTION_NORMAL
 import com.rekoj134.moodandhabittracker.constant.EMOTION_PERFECT
 import com.rekoj134.moodandhabittracker.constant.EMOTION_TERRIBLE
+import com.rekoj134.moodandhabittracker.constant.EXTRAS_READ
+import com.rekoj134.moodandhabittracker.constant.EXTRAS_WRITE
+import com.rekoj134.moodandhabittracker.constant.EXTRA_JOURNAL
 import com.rekoj134.moodandhabittracker.databinding.FragmentJournalBinding
-import com.rekoj134.moodandhabittracker.databinding.FragmentMoodsBinding
-import com.rekoj134.moodandhabittracker.databinding.ItemCalendarDayBinding
 import com.rekoj134.moodandhabittracker.itemJournal
 import com.rekoj134.moodandhabittracker.model.Journal
-import com.rekoj134.moodandhabittracker.util.setTextColorRes
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.YearMonth
 
 class JournalFragment : BaseFragment() {
     private var _binding: FragmentJournalBinding? = null
@@ -63,12 +52,23 @@ class JournalFragment : BaseFragment() {
                     content(it.content)
                     emotion(it.emotion)
                     onClick { _ ->
-                        startActivity(Intent(requireContext(), JournalDetailActivity::class.java))
+                        val intent = Intent(requireContext(), JournalDetailActivity::class.java)
+                        intent.putExtra(EXTRA_JOURNAL, EXTRAS_READ)
+                        startActivity(intent)
                     }
                 }
             }
         }
 
+        handleEvent()
+    }
+
+    private fun handleEvent() {
+        binding?.btnAdd?.setOnClickListener {
+            val intent = Intent(requireContext(), JournalDetailActivity::class.java)
+            intent.putExtra(EXTRA_JOURNAL, EXTRAS_WRITE)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {

@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/imgTaskStatus"
-            android:layout_width="@dimen/_11sdp"
-            android:layout_height="@dimen/_11sdp"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
             android:contentDescription="@null"
             bind:task_status="@{isComplete}"
             android:src="@drawable/bg_circle_no_data"
@@ -36,19 +36,29 @@
 
         <TextView
             android:id="@+id/tvTestExpand"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:fontFamily="@font/lato"
             android:includeFontPadding="false"
             android:text="@{task}"
-            bind:task_underline="@{isComplete}"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgTaskStatus"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Good morning" />
+
+        <View
+            android:id="@+id/viewUnderLine"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/_1sdp"
+            bind:task_underline="@{isComplete}"
+            app:layout_constraintStart_toStartOf="@id/tvTestExpand"
+            app:layout_constraintEnd_toEndOf="@id/tvTestExpand"
+            app:layout_constraintTop_toTopOf="@id/tvTestExpand"
+            app:layout_constraintBottom_toBottomOf="@id/tvTestExpand"
+            android:background="@color/text_color"
+            android:layout_height="1dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

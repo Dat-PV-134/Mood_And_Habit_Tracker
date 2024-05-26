@@ -3,7 +3,6 @@ package com.rekoj134.moodandhabittracker.presentation.routines
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -36,7 +34,9 @@ import com.rekoj134.moodandhabittracker.databinding.FragmentRoutinesBinding
 import com.rekoj134.moodandhabittracker.databinding.PopupFilterRoutineBinding
 import com.rekoj134.moodandhabittracker.databinding.PopupRoutineBinding
 import com.rekoj134.moodandhabittracker.db.MyDatabase
+import com.rekoj134.moodandhabittracker.dialog.ConfirmDeleteDialog
 import com.rekoj134.moodandhabittracker.itemLoadingFull
+import com.rekoj134.moodandhabittracker.itemNone
 import com.rekoj134.moodandhabittracker.itemRoutine
 import com.rekoj134.moodandhabittracker.itemRoutineTask
 import com.rekoj134.moodandhabittracker.model.Routine
@@ -60,6 +60,7 @@ class RoutinesFragment : BaseFragment() {
     private val setRoutineCompleteToday = HashSet<Int>()
     private val listOfExpand = ArrayList<Int>()
     private var isFilterToday = false
+    private var isLoading = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -125,7 +126,7 @@ class RoutinesFragment : BaseFragment() {
                 Log.e("ANCUTKO", "Today " + setRoutineCompleteToday.toString())
                 routineTemp.completeDates.add(
                     Timeline(
-                        routineTemp.completeDates.size + 1,
+                        0,
                         LocalDateUtil.fromDateToString(LocalDate.now()),
                         CalendarUtil.getCurrentHour(),
                         CalendarUtil.getCurrentMinute(),
@@ -175,70 +176,77 @@ class RoutinesFragment : BaseFragment() {
 
     private fun setupView() {
         binding?.rvRoutines?.withModels {
-            if (listRoutines.isEmpty()) {
+            if (isLoading) {
                 itemLoadingFull {
                     id("loading")
                 }
-            }
-            listRoutines.forEach {
-                itemRoutine {
-                    id(it.id)
-                    parentId(it.id)
-                    routineName(it.routineName)
-                    routineTasks(it.routineTasks)
-                    progress(getRoutineProgress(it.id, it.routineTasks))
-                    progressRatio(getRoutineProgressRatio(it.id, it.routineTasks))
-                    statusStreakDay1(
-                        getStatusStreak(
-                            STREAK_DAY_1,
-                            LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates),
-                            it.repeat
-                        )
-                    )
-                    statusStreakDay2(
-                        getStatusStreak(
-                            STREAK_DAY_2,
-                            LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates),
-                            it.repeat
-                        )
-                    )
-                    statusStreakDay3(
-                        getStatusStreak(
-                            STREAK_DAY_3,
-                            LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates),
-                            it.repeat
-                        )
-                    )
-                    statusStreakDay4(
-                        getStatusStreak(
-                            STREAK_DAY_4,
-                            LocalDateUtil.fromStringToDate(it.startDate.date),
-                            getNearestCompleteDate(it.completeDates),
-                            it.repeat
-                        )
-                    )
-                    statusStreakDay5(
-                        getStatusStreak(
-                            it
-                        )
-                    )
-                    onClickExpand { _ ->
-                        if (listOfExpand.contains(it.id)) listOfExpand.remove(it.id)
-                        else listOfExpand.add(it.id)
-                        binding?.rvRoutines?.requestModelBuild()
+            } else {
+                if (listRoutines.isEmpty()) {
+                    itemNone {
+                        id("none")
                     }
-                    onClickMore { view ->
-                        showPopupMore(view) { type ->
-                            doActionPopup(type, it)
+                } else {
+                    listRoutines.forEach {
+                        itemRoutine {
+                            id(it.id)
+                            parentId(it.id)
+                            routineName(it.routineName)
+                            routineTasks(it.routineTasks)
+                            progress(getRoutineProgress(it.id, it.routineTasks))
+                            progressRatio(getRoutineProgressRatio(it.id, it.routineTasks))
+                            statusStreakDay1(
+                                getStatusStreak(
+                                    STREAK_DAY_1,
+                                    LocalDateUtil.fromStringToDate(it.startDate.date),
+                                    getNearestCompleteDate(it.completeDates),
+                                    it.repeat
+                                )
+                            )
+                            statusStreakDay2(
+                                getStatusStreak(
+                                    STREAK_DAY_2,
+                                    LocalDateUtil.fromStringToDate(it.startDate.date),
+                                    getNearestCompleteDate(it.completeDates),
+                                    it.repeat
+                                )
+                            )
+                            statusStreakDay3(
+                                getStatusStreak(
+                                    STREAK_DAY_3,
+                                    LocalDateUtil.fromStringToDate(it.startDate.date),
+                                    getNearestCompleteDate(it.completeDates),
+                                    it.repeat
+                                )
+                            )
+                            statusStreakDay4(
+                                getStatusStreak(
+                                    STREAK_DAY_4,
+                                    LocalDateUtil.fromStringToDate(it.startDate.date),
+                                    getNearestCompleteDate(it.completeDates),
+                                    it.repeat
+                                )
+                            )
+                            statusStreakDay5(
+                                getStatusStreak(
+                                    it
+                                )
+                            )
+                            onClickExpand { _ ->
+                                if (listOfExpand.contains(it.id)) listOfExpand.remove(it.id)
+                                else listOfExpand.add(it.id)
+                                binding?.rvRoutines?.requestModelBuild()
+                            }
+                            onClickMore { view ->
+                                showPopupMore(view) { type ->
+                                    doActionPopup(type, it)
+                                }
+                            }
+                            onClickStreak { _ ->
+                                goToDetail(it)
+                            }
+                            isExpand(listOfExpand.contains(it.id))
                         }
                     }
-                    onClickStreak { _ ->
-                        goToDetail(it)
-                    }
-                    isExpand(listOfExpand.contains(it.id))
                 }
             }
         }
@@ -259,11 +267,16 @@ class RoutinesFragment : BaseFragment() {
             }
 
             TYPE_DELETE -> {
-                listRoutines.remove(item)
-                binding?.rvRoutines?.requestModelBuild()
-                CoroutineScope(Dispatchers.IO).launch {
-                    MyDatabase.getInstance(requireContext()).routineDao().deleteRoutine(item)
-                }
+                val confirmDialog = ConfirmDeleteDialog(requireContext(), {
+                    listRoutines.remove(item)
+                    binding?.rvRoutines?.requestModelBuild()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        MyDatabase.getInstance(requireContext()).routineDao().deleteRoutine(item)
+                    }
+                }, {
+                    // do nothing
+                })
+                confirmDialog.show()
             }
         }
     }
@@ -426,6 +439,7 @@ class RoutinesFragment : BaseFragment() {
                 }
             }
             Log.e("List", listRoutines.toString())
+            isLoading = false
             withContext(Dispatchers.Main) {
                 setOfTaskCompleteToday.value = HashSet<String>()
                 setOfTaskCompleteToday.value!!.addAll(
@@ -508,7 +522,7 @@ fun setTaskStatus(view: ImageView, isComplete: Boolean) {
 }
 
 @BindingAdapter("bind:task_underline")
-fun setTaskUnderline(view: TextView, isUnderline: Boolean) {
-    if (isUnderline) view.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-    else view.paintFlags = 0
+fun setTaskUnderline(view: View, isUnderline: Boolean) {
+    if (isUnderline) view.visibility = View.VISIBLE
+    else view.visibility = View.GONE
 }

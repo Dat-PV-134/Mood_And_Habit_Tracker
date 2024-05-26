@@ -2,6 +2,9 @@ package com.rekoj134.moodandhabittracker.presentation.focus
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.RelativeLayout
@@ -22,6 +25,12 @@ class CustomFocusClock @JvmOverloads constructor(
     private val HOURS: Long = 3600000L
     private val MINUTES: Long = 60000L
     private val SECONDS: Long = 1000L
+
+    private val progressPaint = Paint().apply {
+        color = Color.parseColor("#FF8282")
+        style = Paint.Style.STROKE
+        strokeWidth = 4f
+    }
 
     init {
         inflate(context, R.layout.custom_focus_clock, this)
@@ -64,6 +73,14 @@ class CustomFocusClock @JvmOverloads constructor(
         rotateHourHand(typedArray.getFloat(R.styleable.SimpleAnalogClock_hourRotation, 0f))
         rotateMinuteHand(typedArray.getFloat(R.styleable.SimpleAnalogClock_minuteRotation, 0f))
         rotateSecondHand(typedArray.getFloat(R.styleable.SimpleAnalogClock_secondRotation, 0f))
+    }
+
+    fun setPercent(percent: Float) {
+        findViewById<CustomProgressCircle>(R.id.progress).setRemaining(percent)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
     }
 
     fun setFaceDrawable(drawable: Drawable?): CustomFocusClock {

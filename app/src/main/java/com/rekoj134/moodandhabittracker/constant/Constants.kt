@@ -29,3 +29,11 @@ const val EMOTION_BAD = 1
 const val EMOTION_NORMAL = 2
 const val EMOTION_GOOD = 3
 const val EMOTION_PERFECT = 4
+
+const val TYPE_FOCUS = 0
+const val TYPE_SHORT_BREAK = 1
+const val TYPE_LONG_BREAK = 2
+
+const val EXTRA_JOURNAL = "EXTRA_JOURNAL"
+const val EXTRAS_WRITE = 0
+const val EXTRAS_READ = 1
