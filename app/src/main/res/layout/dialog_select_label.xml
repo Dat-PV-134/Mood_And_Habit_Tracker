@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/dialog_confirm_delete_inset"
     android:paddingTop="@dimen/_12sdp"
+    android:paddingHorizontal="@dimen/_12sdp"
     android:paddingBottom="@dimen/_10sdp">
 
     <TextView
@@ -14,14 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
+        android:paddingHorizontal="@dimen/_12sdp"
         android:fontFamily="@font/lato"
         android:text="@string/select_label"
         android:textColor="@color/text_color"
         android:textSize="@dimen/_18ssp"
-        app:layout_constraintBottom_toBottomOf="@id/btnCreateNew"
-        app:layout_constraintEnd_toStartOf="@id/btnCreateNew"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnCreateNew" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/btnCreateNew"
@@ -29,6 +30,7 @@
         android:layout_height="@dimen/_30sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/_6sdp"
+        android:visibility="gone"
         android:src="@drawable/ic_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,10 +38,15 @@
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/rvLabel"
         android:layout_width="match_parent"
-        tools:listitem="@layout/epoxy_item_none"
-        android:layout_height="@dimen/_100sdp"
+        tools:listitem="@layout/epoxy_item_label"
+        android:layout_height="@dimen/_150sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@id/btnCreateNew" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:itemCount="5"
+        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@id/tvEditTitle" />
 
     <TextView
         android:id="@+id/btnOk"

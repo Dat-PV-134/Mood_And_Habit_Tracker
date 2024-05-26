@@ -12,8 +12,9 @@ import android.view.View
 class CustomProgressCircle : View {
     private var remainingPercent = 0f
 
-    fun setRemaining(percent: Float) {
+    fun setRemaining(percent: Float, color: String) {
         remainingPercent = percent
+        slicePaint.color = Color.parseColor(color)
         invalidate()
     }
 

@@ -3,17 +3,27 @@ package com.rekoj134.moodandhabittracker.presentation.focus
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.BindingAdapter
 import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.base.BaseActivity
+import com.rekoj134.moodandhabittracker.constant.EMOTION_BAD
+import com.rekoj134.moodandhabittracker.constant.EMOTION_GOOD
+import com.rekoj134.moodandhabittracker.constant.EMOTION_NORMAL
+import com.rekoj134.moodandhabittracker.constant.EMOTION_PERFECT
+import com.rekoj134.moodandhabittracker.constant.EMOTION_TERRIBLE
 import com.rekoj134.moodandhabittracker.constant.TYPE_DELETE
 import com.rekoj134.moodandhabittracker.constant.TYPE_EDIT
 import com.rekoj134.moodandhabittracker.constant.TYPE_FOCUS
@@ -29,6 +39,7 @@ import com.rekoj134.moodandhabittracker.itemPomodoro
 import com.rekoj134.moodandhabittracker.model.Focus
 import com.rekoj134.moodandhabittracker.preference.MyPreferences
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.breakTime
+import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.curColor
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.curPercent
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.curType
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.doFocus
@@ -36,7 +47,9 @@ import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.doLongB
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.doShortBreak
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.focusTime
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.longBreakTime
+import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.updateLabel
 import com.rekoj134.moodandhabittracker.service.FocusService
+import com.rekoj134.moodandhabittracker.util.ModelConverterUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -54,7 +67,7 @@ class FocusTimeActivity : BaseActivity() {
                     currentTime.get(Calendar.MINUTE),
                     currentTime.get(Calendar.SECOND)
                 )
-                binding.clock.setPercent(curPercent)
+                binding.clock.setPercent(curPercent, curColor)
                 binding.rvPomodoro.requestModelBuild()
                 handler.postDelayed(this, 1000)
             } else {
@@ -108,7 +121,9 @@ class FocusTimeActivity : BaseActivity() {
 
     private fun showDialogSelectLabel() {
         val selectLabelDialog = SelectLabelDialog(this@FocusTimeActivity, {
-
+            MyPreferences.write(MyPreferences.PREF_CURRENT_FOCUS_LABEL, ModelConverterUtil.fromLabelToString(it))
+            updateLabel(it)
+            Toast.makeText(this@FocusTimeActivity, getString(R.string.update_successfully), Toast.LENGTH_SHORT).show()
         }, {
 
         })
@@ -195,4 +210,14 @@ class FocusTimeActivity : BaseActivity() {
         super.onDestroy()
         handler.removeCallbacks(runnable)
     }
+}
+
+@BindingAdapter("bind:is_selected_label")
+fun setIsSelectedLabel(view: ImageView, isSelected: Boolean) {
+    view.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
+}
+
+@BindingAdapter("bind:set_background_tint")
+fun setBackgroundTint(view: ConstraintLayout, color: String) {
+    view.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
 }

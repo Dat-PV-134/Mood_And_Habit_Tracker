@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+        <variable
+            name="label"
+            type="String" />
+
+        <variable
+            name="backgroundColor"
+            type="String" />
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        bind:set_background_tint="@{backgroundColor}"
+        android:background="@drawable/bg_item_label"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        android:onClick="@{onClickItem}"
+        android:layout_marginVertical="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imgSelected"
+            android:src="@drawable/ic_done_action"
+            android:layout_width="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@null"
+            bind:is_selected_label="@{isSelected}"
+            android:layout_height="@dimen/_20sdp"/>
 
+        <TextView
+            android:id="@+id/tvLabelName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{label}"
+            android:textColor="@color/text_color"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            app:layout_constraintStart_toEndOf="@id/imgSelected"
+            android:fontFamily="@font/lato"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

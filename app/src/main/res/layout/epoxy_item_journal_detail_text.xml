@@ -4,6 +4,10 @@
 
     <data>
         <variable
+            name="content"
+            type="String" />
+
+        <variable
             name="isEnable"
             type="Boolean" />
     </data>
@@ -16,12 +20,12 @@
 
         <EditText
             android:id="@+id/tvContent"
-            android:text="@string/journal_entry"
             android:layout_width="match_parent"
             android:textColor="@color/text_color"
             app:layout_constraintTop_toTopOf="parent"
             android:fontFamily="@font/lato"
             android:textSize="@dimen/_13ssp"
+            android:text="@={content}"
             android:background="@null"
             android:enabled="@{isEnable}"
             android:layout_height="wrap_content"/>

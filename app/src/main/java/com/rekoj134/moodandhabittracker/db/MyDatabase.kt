@@ -10,15 +10,17 @@ import com.rekoj134.moodandhabittracker.db.converter.RoutineTasksConverter
 import com.rekoj134.moodandhabittracker.db.converter.TimeLineConverter
 import com.rekoj134.moodandhabittracker.db.converter.TimeLinesConverter
 import com.rekoj134.moodandhabittracker.db.dao.FocusDao
+import com.rekoj134.moodandhabittracker.db.dao.JournalDao
 import com.rekoj134.moodandhabittracker.db.dao.MoodDao
 import com.rekoj134.moodandhabittracker.db.dao.RoutineDao
 import com.rekoj134.moodandhabittracker.model.Focus
+import com.rekoj134.moodandhabittracker.model.Journal
 import com.rekoj134.moodandhabittracker.model.Mood
 import com.rekoj134.moodandhabittracker.model.Routine
 import com.rekoj134.moodandhabittracker.util.getBackUpDirectory
 
 @Database(
-    entities = [Routine::class, Mood::class, Focus::class],
+    entities = [Routine::class, Mood::class, Focus::class, Journal::class],
     version = 1,
     exportSchema = false
 )
@@ -27,6 +29,7 @@ abstract class MyDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao
     abstract fun moodDao(): MoodDao
     abstract fun focusDao(): FocusDao
+    abstract fun journalDao(): JournalDao
 
     companion object {
         const val BACKUP_DIRECTORY = ".backup_routines"

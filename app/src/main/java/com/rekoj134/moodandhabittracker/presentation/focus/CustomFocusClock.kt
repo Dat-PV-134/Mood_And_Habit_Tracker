@@ -75,8 +75,8 @@ class CustomFocusClock @JvmOverloads constructor(
         rotateSecondHand(typedArray.getFloat(R.styleable.SimpleAnalogClock_secondRotation, 0f))
     }
 
-    fun setPercent(percent: Float) {
-        findViewById<CustomProgressCircle>(R.id.progress).setRemaining(percent)
+    fun setPercent(percent: Float, color: String) {
+        findViewById<CustomProgressCircle>(R.id.progress).setRemaining(percent, color)
     }
 
     override fun onDraw(canvas: Canvas) {

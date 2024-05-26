@@ -8,7 +8,6 @@ const val STREAK_DAY_1 = 1
 const val STREAK_DAY_2 = 2
 const val STREAK_DAY_3 = 3
 const val STREAK_DAY_4 = 4
-const val STREAK_DAY_5 = 5
 
 const val EXTRA_ROUTINE = "EXTRA_ROUTINE"
 
@@ -35,5 +34,10 @@ const val TYPE_SHORT_BREAK = 1
 const val TYPE_LONG_BREAK = 2
 
 const val EXTRA_JOURNAL = "EXTRA_JOURNAL"
+const val EXTRA_JOURNAL_OBJECT = "EXTRA_JOURNAL_OBJECT"
 const val EXTRAS_WRITE = 0
 const val EXTRAS_READ = 1
+
+const val TYPE_TEXT = 0
+const val TYPE_IMAGE = 1
+const val TYPE_STICKER = 2

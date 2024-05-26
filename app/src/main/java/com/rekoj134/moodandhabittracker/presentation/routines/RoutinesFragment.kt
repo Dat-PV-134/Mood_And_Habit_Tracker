@@ -422,6 +422,7 @@ class RoutinesFragment : BaseFragment() {
     }
 
     private fun initData() {
+        isLoading = true
         if (MyPreferences.read(MyPreferences.PREF_TODAY, "") != LocalDateUtil.fromDateToString(LocalDate.now())) {
             MyPreferences.write(MyPreferences.PREF_TODAY, LocalDateUtil.fromDateToString(LocalDate.now()))
             MyPreferences.write(MyPreferences.PREF_COMPLETE_TASKS_TODAY, "")

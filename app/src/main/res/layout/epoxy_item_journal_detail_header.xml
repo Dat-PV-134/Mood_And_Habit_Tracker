@@ -2,10 +2,28 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="curMood"
+            type="Integer" />
+
+        <variable
+            name="curDate"
+            type="String" />
+
+        <variable
+            name="curTime"
+            type="String" />
+
+        <variable
+            name="onClickMood"
+            type="android.view.View.OnClickListener" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:paddingVertical="@dimen/_6sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
         android:paddingHorizontal="@dimen/_12sdp"
         android:layout_height="wrap_content">
 
@@ -14,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="13/04/2024"
+            android:text="@{curDate}"
             android:textSize="@dimen/_18ssp"
             android:textColor="@color/text_color"
             android:fontFamily="@font/lato"
@@ -27,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15:30 pm"
+            android:text="@{curTime}"
             android:textSize="@dimen/_14ssp"
             android:textColor="@color/text_color"
             android:fontFamily="@font/lato"
@@ -40,6 +58,9 @@
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
             android:src="@drawable/ic_perfect"
+            android:onClick="@{onClickMood}"
+            android:contentDescription="@null"
+            bind:cur_mood="@{curMood}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

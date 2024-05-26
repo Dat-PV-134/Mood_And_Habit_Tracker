@@ -4,12 +4,16 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import com.rekoj134.moodandhabittracker.R
 import com.rekoj134.moodandhabittracker.model.Focus
+import com.rekoj134.moodandhabittracker.model.Label
 import com.rekoj134.moodandhabittracker.preference.MyPreferences
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.breakTime
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.focusTime
 import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.longBreakTime
+import com.rekoj134.moodandhabittracker.presentation.focus.FocusInstance.updateLabel
+import com.rekoj134.moodandhabittracker.util.ModelConverterUtil
 
 class MyApplication : Application() {
     override fun onCreate() {
@@ -28,6 +32,10 @@ class MyApplication : Application() {
 
         breakTime = MyPreferences.read(MyPreferences.PREF_BREAK_TIME, 300000L)
         FocusInstance.totalBreakTime = breakTime
+
+        updateLabel(
+            ModelConverterUtil.fromStringToLabel(MyPreferences.read(MyPreferences.PREF_CURRENT_FOCUS_LABEL, ModelConverterUtil.fromLabelToString(
+                Label(0, applicationContext.getString(R.string.special), "#4D94CADB")))!!))
     }
 
     private fun createNotificationChannel() {

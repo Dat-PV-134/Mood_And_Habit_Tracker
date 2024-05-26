@@ -10,6 +10,7 @@ import com.rekoj134.moodandhabittracker.constant.TYPE_SHORT_BREAK
 import com.rekoj134.moodandhabittracker.db.MyDatabase
 import com.rekoj134.moodandhabittracker.model.Focus
 import com.rekoj134.moodandhabittracker.model.FocusTime
+import com.rekoj134.moodandhabittracker.model.Label
 import com.rekoj134.moodandhabittracker.model.Timeline
 import com.rekoj134.moodandhabittracker.util.LocalDateUtil
 import com.rekoj134.moodandhabittracker.util.ModelConverterUtil
@@ -33,6 +34,11 @@ object FocusInstance {
     var curType = -1
     var curPercent = 0f
     var isPausing = false
+
+    fun updateLabel(label: Label) {
+        curLabel = label.name
+        curColor = label.color
+    }
 
     fun update(focus: Long, shortBreak: Long, longBreak: Long) {
         totalFocusTime = focus

@@ -66,4 +66,12 @@
     <string name="no_items">No items</string>
     <string name="edit_label">Edit label</string>
     <string name="create_new_label">Create new label...</string>
+    <string name="special">Special</string>
+    <string name="work">Work</string>
+    <string name="study">Study</string>
+    <string name="meditation">Meditation</string>
+    <string name="unknown">Unknown</string>
+    <string name="write_something">Write something...</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
 </resources>
